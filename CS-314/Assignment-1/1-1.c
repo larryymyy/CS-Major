@@ -11,43 +11,20 @@
 */
 
 #include <stdio.h>
-#include <locale.h>
+#include <locale.h> /* Allows for number formatting */
 
-/* Code Provided by Assignment Description */
-/* ================================================ */
+/* Prototypes */
+void printBytes(unsigned char *start, int len);
+void printShort(short x);
+void printInt(int x);
+void printLong(long x);
+void printFloat(float x);
+void printDouble(double x);
 
-void printBytes(unsigned char *start, int len) {
-	for(int i = 0; i < len; i++) {
-		printf(" %.2x", start[i]);
-	}
-	printf("\n");
-}
+/* main method */
+int main() {
 
-void printInt(int x) {
-	printBytes((unsigned char *) &x, sizeof(int));
-}
-
-void printFloat(float x) {
-	printBytes((unsigned char*) &x, sizeof(float));
-}
-
-/* ================================================ */
-
-void printShort(short x) {
-	printBytes((unsigned char *) &x, sizeof(short));
-}
-
-void printLong(long x) {
-	printBytes((unsigned char *) &x, sizeof(long));
-}
-
-void printDouble(double x) {
-	printBytes((unsigned char *) &x, sizeof(double));
-}
-
-int main(int argc, char **argv) {
-
-	setlocale(LC_NUMERIC, "");
+	setlocale(LC_NUMERIC, "");	/* allow number formatting in the form %'d, %'ld, etc. */
 
 	/*
 	   Observations
@@ -67,24 +44,59 @@ int main(int argc, char **argv) {
 
 	short  short_test =  12345;
 	int    int_test   =  1234567890;
-	long   long_test  =  1234567891011121314; 
-	float  float_test =  1.012345e32; 
-	double double_test = 1.0123456789123456e64;
+	long   long_test  =  1234567891011; 
+	float  float_test =  1.234567e12; 
+	double double_test = 1.234567e123;
 
-	printf("Short Test:  %'d ->", short_test);
+	printf("Short Test:\nValue: %'d\nBytes:", short_test);
 	printShort(short_test);
 
-	printf("Int Test:    %'d ->", int_test);
+	printf("\nInt Test:\nValue: %'d\nBytes:", int_test);
 	printInt(int_test);
 
-	printf("Long Test:   %'ld ->", long_test);
+	printf("\nLong Test:\nValue: %'ld\nBytes:", long_test);
 	printLong(long_test);
 	
-	printf("Float Test:  %'f ->", float_test);
+	printf("\nFloat Test:\nValue: %'f\nBytes:", float_test);
 	printFloat(float_test);
 
-	printf("Double Test: %'f ->", double_test);
+	printf("\nDouble Test:\nValue: %'f\nBytes:", double_test);
 	printDouble(double_test);
 
 	return 0;
+}
+
+/* Code Provided by Assignment Description */
+/* ================================================ */
+
+void printBytes(unsigned char *start, int len) {
+	for(int i = 0; i < len; i++) {
+		printf(" 0x%.2x", start[i]);
+	}
+	printf("\n");
+}
+
+void printInt(int x) {
+	printBytes((unsigned char *) &x, sizeof(int));
+}
+
+void printFloat(float x) {
+	printBytes((unsigned char*) &x, sizeof(float));
+}
+
+/* ================================================ */
+
+/* printShort() implementation */
+void printShort(short x) {
+	printBytes((unsigned char *) &x, sizeof(short));
+}
+
+/* printLong() implementation */
+void printLong(long x) {
+	printBytes((unsigned char *) &x, sizeof(long));
+}
+
+/* printDouble() implementation */
+void printDouble(double x) {
+	printBytes((unsigned char *) &x, sizeof(double));
 }

@@ -17,4 +17,4 @@ all:
 	gcc 1-4.c -o 1-4 -O3 -Wall
 
 clean:
-	rm 1-1 1-2 1-3 1-4
+	rm -rf 1-1 1-2 1-3 1-4
