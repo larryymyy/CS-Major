@@ -1,7 +1,16 @@
+/*
+   Kevin Conte
+   951620146
+   4 October 2018
+
+   Lab 0
+ */
+
 import java.util.Scanner;                         //import Scanner package
 
 public class lab0 {
 	public static void main(String[] args){
+	
 		Scanner scanner = new Scanner(System.in);
 		int numProblems = scanner.nextInt();          //retrieve the number of lines
 
@@ -29,6 +38,6 @@ public class lab0 {
 	public static int lcm(int a, int b){
 		// Find the least common multiple of a and b
 		// Hint: Use the gcd of a and b
-		return a * (b / gcd(a, b));
+		return (a * b) / gcd(a, b);
 	}
 }
