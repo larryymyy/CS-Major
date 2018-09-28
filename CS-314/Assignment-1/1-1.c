@@ -24,7 +24,7 @@ void printDouble(double x);
 /* main method */
 int main() {
 
-	setlocale(LC_NUMERIC, "");	/* allow number formatting in the form %'d, %'ld, etc. */
+	setlocale(LC_NUMERIC, "");	/* allow number formatting in the form %'d, %'ld, etc. | i.e. commas in large numbers */
 
 	/*
 	   Observations
@@ -35,11 +35,7 @@ int main() {
 	   		I expected printInt(255) to produce: 00 00 00 ff
 			but it produced: ff 00 00 00
 
-			I suspect it means that the computer reads values in reverse order
-			(or at least stores them in memory in reverse) for it to perform
-			arithmetic properly.
-
-			It is interesting that the bits are not reversed, but whole bytes
+			I suspect it means that my machine stores memory in Little Endian
 	*/
 
 	short  short_test =  12345;
