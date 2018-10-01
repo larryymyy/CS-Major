@@ -43,7 +43,7 @@
 	- !!0x41 - 0x01
 	- 0x69 && 0x55 - 0x01
 	- 0x69 || 0x55 - 0x01
-	- p && *p (avoids null pointer access)
+	- p && \*p (avoids null pointer access)
 ---
 ## Shift Operations
 + Left Shift: x << y
@@ -65,9 +65,9 @@
 ---
 ## Encoding Integers
 + Unsigned
-	- B2U(X) = sum(0, w-1, x_i*2^i)
+	- B2U(X) = sum(0, w-1, x\_i\*2^i)
 + Two's Complement
-	- B2T(X) = -x_(w-1)*2^(w-1)+sum(0, w-2, x_i*2^i)
+	- B2T(X) = -x_(w-1)\*2^(w-1)+sum(0, w-2, x_i\*2^i)
 
 <pre>
 short int x =  15213;
