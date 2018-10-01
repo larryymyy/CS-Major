@@ -10,8 +10,10 @@
 
 #include <stdio.h>
 
+/* Prototype */
 unsigned int extract(unsigned int x, int i);
 
+/* Main Method */
 int main() {
 	printf("Kevin Conte\n");
 	printf("Assignment 2, Part 2\n\n");
@@ -21,11 +23,13 @@ int main() {
 	return 0;
 }
 
+/* extract() Method */
 unsigned int extract(unsigned int x, int i) {
 	/* Align the mask to the correct byte index */
+	/* Again, shifting left by 3 bits is equivalent to multiplying by 8 */
 	unsigned int mask = 0x000000FF << (i << 3);
 
-	/* Using a regular int to ensure arithmetic shifts */
+	/* Using a regular int to force arithmetic shifts */
 	/* Isolates the specified byte with the mask */
 	int result = x & mask;
 
