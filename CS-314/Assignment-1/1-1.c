@@ -24,7 +24,7 @@ void printDouble(double x);
 /* main method */
 int main() {
 
-	setlocale(LC_NUMERIC, "");	/* allow number formatting in the form %'d, %'ld, etc. | i.e. commas in large numbers */
+	setlocale(LC_NUMERIC, "");	/* Allow number formatting in the form %'d, %'ld, etc. | i.e. commas in large numbers */
 
 	/*
 	   Observations
@@ -42,8 +42,8 @@ int main() {
 	int    int_test   =  1234567890;
 	long   long_test  =  1234567891011; 
 	float  float_test =  1.234567e12; 
-	double double_test = 1.234567e123;
-
+	double double_test = 1.234567e123; /* Value is so large to ensure it falls above float's max value and comfortably in double's value range */
+	
 	printf("Short Test:\nValue: %'d\nBytes:", short_test);
 	printShort(short_test);
 
