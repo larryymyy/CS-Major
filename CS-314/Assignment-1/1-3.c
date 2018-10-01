@@ -38,6 +38,8 @@ unsigned int replace(unsigned int x, int a, unsigned char b) {
 	unsigned int shift = b << (a << 3);
 
 	/*
+	   Example
+	   =======
 	   x = 0x12345678
 	   a = 2
 	   b = 0xab
