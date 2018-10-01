@@ -20,8 +20,8 @@
 + & = AND
 + | = OR
 + ^ = XOR
-+ ~ = NOT
-//TODO: Add Logic Tables
++ ~ = NOT<br/>
+<b><i>TODO: Add Logic Tables</i></b>
 
 <pre>
   01101001        01101001       01101001
@@ -38,11 +38,11 @@
 	- Always return 0 or 1
 	- *Early Termination*
 + Examples (char data type)
-	- !0x41 -> 0x00
-	- !0x00 -> 0x01
-	- !!0x41 -> 0x01
-	- 0x69 && 0x55 -> 0x01
-	- 0x69 || 0x55 -> 0x01
+	- !0x41 - 0x00
+	- !0x00 - 0x01
+	- !!0x41 - 0x01
+	- 0x69 && 0x55 - 0x01
+	- 0x69 || 0x55 - 0x01
 	- p && *p (avoids null pointer access)
 ---
 ## Shift Operations
@@ -51,7 +51,7 @@
 		+ Throw away extra bits on left
 	- Fill with 0's on right
 	- Example:
-		+ 01100010 << 3 -> 00010000
+		+ 01100010 << 3 - 00010000
 + Right Shift: x >> y
 	- Shift bit-vector x right y positions
 		+ Throw away extra bits on right
@@ -60,3 +60,43 @@
 	- Arithmetic Shift
 		+ Replace most significant bit on right
 + Undefined Behavior
+---
+### 1 October 2018
+---
+## Encoding Integers
++ Unsigned
+	- B2U(X) = sum(0, w-1, x_i*2^i)
++ Two's Complement
+	- B2T(X) = -x_(w-1)*2^(w-1)+sum(0, w-2, x_i*2^i)
+
+<pre>
+short int x =  15213;
+short int y = -15213;
+</pre>
+
++ C short <b>2 bytes</b> long
++ Sign Bit
+	- For Two's Complement, most significant bit indicates sign
+		+ 0 for nonnegative
+		+ 1 for negative
+---
+## Negation: Complement and Increment
++ Claim: following holds for Two's Complement
+<pre>~x + 1 = -x</pre>
++ Complement
+	- Observation: ~x + x == 1111...111 == -1
+<pre>
+   x | 10011101
++ ~x | 01100010
+---------------
+  -1 | 11111111
+</pre>
+---
+## Casting Suprises
++ Expression Evaluation
+	- If there is a mix of unsigned and signed in single expression, <b><i>signed values implicitly cast to unsigned</i></b>
+	- Including comparison operations <, >, ==, <=, >=
+	- Examples for W = 32: <b><i>TMIN = -2,147,483, 648 | TMAX = 2,147,483,647</i></b>
+## Sign Extension
++ Task:
+	- Given w-bit signed integer x
