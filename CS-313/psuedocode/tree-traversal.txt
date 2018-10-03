@@ -1,0 +1,40 @@
+
+
+preorderTraversal(node p):
+	print p.value
+	if p.left not NULL:
+		preorderTraversal(p.left)
+	if p.right not NULL:
+		preorderTraversal(p.right)
+
+
+inorderTraversal(node p):
+	if p.left not NULL:
+		inorderTraversal(p.left)
+	print p.value
+	if p.right not NULL:
+		inorderTraversal(p.right)
+
+
+postorderTraversal(node p):
+	if p.left not NULL:
+		postorderTraversal(p.left)
+	if p.right not NULL:
+		postorderTraversal(p.right)
+	print p.value
+
+
+Stack Traversal
+===============
+
+inorderTraversalStack(node T):
+	S := Stack of node
+	T := Tree
+	S.push(T.root)
+	while not S.isEmpty():
+		p := S.pop
+		print p.value
+		if p.right not NULL:
+			S.push(p.right)
+		if p.left not NULL:
+			S.push(p.left)

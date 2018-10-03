@@ -33,10 +33,10 @@ int main() {
 
 /* mask() Method */
 int mask(int n) {
-	/* Assume the mask is full, and shift it right until it matches the input specification */
-	int result = 0x7FFFFFFF; /* 01111111 11111111 11111111 11111111 */
-	result >>= (31 - n); /* logical shift right by the difference between 31 and the input (i.e. n=11 -> shift right by 20 bits) */
-	return result;
-
-	// One-liner: return (0x7FFFFFFF) >> (31 - n);
+	/*
+	   Mask = 0x7FFFFFFF
+	   Shift Mask right by (31 - n) bits
+	   Return
+	 */
+	return (0x7FFFFFFF) >> (31 - n);
 }

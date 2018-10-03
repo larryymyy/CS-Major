@@ -1,0 +1,19 @@
+Psuedocode for pop()
+====================
+
+pop():
+	x := -1
+	// Copy Q1 into Q2
+	while not Q1.isEmpty:
+		x := Q1.dequeue
+		if not Q1.isEmpty:
+			Q2.enqueue(x)
+	
+	// Copy Back
+	while not Q2.isEmpty:
+		Q1.enqueue(Q2.dequeue)
+	return x
+
+Time
+----
+If n elements stored, the time is O(n).
