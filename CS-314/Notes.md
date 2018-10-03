@@ -123,3 +123,77 @@ short int y = -15213;
 ## Sign Extension
 + Task:
 	- Given w-bit signed integer x
+---
+### 3 October 2018
+---
+### Addition, Negation, Mutiplication, and Shifting
+<b><i>CHECK SLIDES FOR NOTES</i></b>
+---
+### Multiplication in C
++ Standard Multiplication Function
+	- Ignores high order *w* bits
++ Implements Modular Arithmetic
+	- UMult(u, v) = u \* v mod 2^w
++ Mult two 'ints' and store in a 'long'
+---
+### Power-of-2 Multiply with shift
++ Operation
+	- u \<\< k gives u \* 2^k
+	- Both signed and unsigned
++ Examples
+	- u \<\< 3 == u \* 8
+	- u \<\< 5 - u \<\< 3 == u \* 24
+	- Most machines shift and add faster than multiply
+		+ Compiler generates this code automatically
+---
+### Power-of-2 Divide with Shift
++ Operation
+	- u \>\> k gives floor(u / 2^k)
+	- Uses logical shift for unsigned, arithmetic shift for signed
+---
+### Why Should I Use Unsigned?
++ *Don't* Use Just Because Number Nonnegative
+	- Easy to make mistakes
+<pre>
+unsigned i;
+for (i = cnt-2; i >=0; i--)
+	a[i] += a[i+1];
+</pre>
++ *Do* Use When Using Bits to Represent Sets
+	- Logical right shift, no sign extension
+---
+## Floating Point Representations
+---
+### Fractional binary numbers
++ 1110011 can represent lots of things
+	- Positive Integer
+	- Negative Integer
+	- Character in a string
+	- Color
+	- Etc.
++ What is 111.0011?
++ Representation
+	- Bits to the right of "binary point" represent fractional powers of 2
+	- Represents rational number
+		+ sum(k = -j, i, b\_k \* 2^k)
++ Back to 111.0011
+	- 111 . 0011
+	- 4 + 2 + 1 . (0 + 0 + .125 + 0625)
+	- 7.1875
+---
+### IEEE Floating Point Standard
++ IEEE Standard 754
+	- Established in 1985 as uniform standard for floating point arithmetic
+		+ Before that, many idiosyncratic formats
+	- Supported by all major CPU's
++ Driven by numerical concerns
+	- Nice standards for rounding, overflow, underflow, infinity
+	- Hard to make fast in hardward
+		+ Numerical analysts predominated over hardware designers in defining standard
+		+ Lots of cases!
++ How to encode / decode?
++ Numerical Form
+	- (-1)^s M 2^E
+	- Sign bit s determines whether number is negative or positive
+	- Significand M normally a fractional value in range [1.0, 2.0)
+	- Exponent E weights value by power of two
