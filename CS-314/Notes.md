@@ -138,7 +138,7 @@ short int y = -15213;
 ---
 ### Power-of-2 Multiply with shift
 + Operation
-	- u \<\< k gives u \* 2^k
+	- u \<\< k gives u \* 2<sup>k</sup>
 	- Both signed and unsigned
 + Examples
 	- u \<\< 3 == u \* 8
