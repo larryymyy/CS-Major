@@ -197,3 +197,61 @@ for (i = cnt-2; i >=0; i--)
 	- Sign bit s determines whether number is negative or positive
 	- Significand M normally a fractional value in range [1.0, 2.0)
 	- Exponent E weights value by power of two
+---
+### 5 October 2018
+---
+### IEEE Floating Point Standard - Cont.
++ Encoding
+	- MSB s is sign bit s
+	- exp field encodes E (but is not equal to E)
+	- frac field encodes M (but is not equal to M)
+__MIDTERM MATERIAL__
++ Single Precision: 32-bits
++ Double Precision: 64 Bits
++ Extended Precision: 80 Bits (INTEL ONLY)
+---
+### "Normalized Values"
++ When: exp != 000...0 and exp != 111...1
+	- Special Cases
++ Sign: 0 for positive, 1 for negative
++ Exponent coded as a biased value: E = Exp - Bias
+	- Exp: unsigned value of exp field
+	- Bias = 2^(k-1) - 1, where k is number of exponent bits
+		+ Single Precision: 127 (Exp: 1...254, E:-126...127)
+		+ Double Precision: 1023 (Exp:1...2046, E:-1022...1023)
++ Significand coded with implied leading 1: M = 1.xxx...x<sub>2</sub>
+	- xxx...x: bits of frac field
+	- Minimum when frac=000...0 (M=1.0)
+	- Maximum when frac=111.111 (M=2.0 -[e]) // [e] = epsilon
+	- Get extra leading bit for "free" because significand is normalized and 1 is the only significant figure in binary
+
+---
+##### Example
+<pre>
+13.75
+sign: 0
+binary rep: 1101.11 * 2<sup>0</sup>
+normalized: 1.10111 * 2<sup>3</sup>
+E = 3
+  + 127
+  -----
+exp:130
+binary rep of exp: 10000010
+
+binary rep of 13.75 encoded as IEEE 754 Single-Precision Floating-Point:
+	0100 0001 0101 1100 0000 0000 0000 0000
+
+hex rep of 13.75:
+	0x415C0000
+</pre>
+__Second example on slides__
+---
+__GET SPECIAL CASES FROM SLIDES__
+### Special Properties
++ FP Zero same as Integer 0
+	- all bits = 0
++ Can (Almost) Use Unsigned Integer Comparison
+	- Must first compare sign bits
+	- Must consider -0 = 0
+	- NaNs problematic
+		+ Will be greater than any other values
