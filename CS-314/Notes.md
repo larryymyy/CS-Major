@@ -204,8 +204,8 @@ for (i = count-2; i >=0; i--)
 + Encoding
 	- MSB s is sign bit s
 	- exp field encodes E (but is not equal to E)
-	- frac field encodes M (but is not equal to M)
-__MIDTERM MATERIAL__
+	- frac field encodes M (but is not equal to M)  
+__MIDTERM MATERIAL__  
 + Single Precision: 32-bits
 + Double Precision: 64 Bits
 + Extended Precision: 80 Bits (INTEL ONLY)
@@ -216,7 +216,7 @@ __MIDTERM MATERIAL__
 + Sign: 0 for positive, 1 for negative
 + Exponent coded as a biased value: E = Exp - Bias
 	- Exp: unsigned value of exp field
-	- Bias = 2^(k-1) - 1, where k is number of exponent bits
+	- Bias = 2<sup>(k-1)</sup> - 1, where k is number of exponent bits
 		+ Single Precision: 127 (Exp: 1...254, E:-126...127)
 		+ Double Precision: 1023 (Exp:1...2046, E:-1022...1023)
 + Significand coded with implied leading 1: M = 1.xxx...x<sub>2</sub>
