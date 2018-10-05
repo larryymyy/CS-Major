@@ -69,13 +69,13 @@ XOR
 	- p && \*p (avoids null pointer access)
 ---
 ## Shift Operations
-+ Left Shift: x << y
++ Left Shift: x \<\< y
 	- Shift bit-vector x left y positions
 		+ Throw away extra bits on left
 	- Fill with 0's on right
 	- Example:
-		+ 01100010 << 3 - 00010000
-+ Right Shift: x >> y
+		+ 01100010 \<\< 3 - 00010000
++ Right Shift: x \>\> y
 	- Shift bit-vector x right y positions
 		+ Throw away extra bits on right
 	- Logical Shift:
@@ -88,9 +88,9 @@ XOR
 ---
 ## Encoding Integers
 + Unsigned
-	- B2U(X) = sum(0, w-1, x\_i\*2^i)
+	- B2U(X) = sum(0, w-1, x<sub>i</sub>\*2<sup>i</sup>)
 + Two's Complement
-	- B2T(X) = -x\_(w-1)\*2^(w-1)+sum(0, w-2, x\_i\*2^i)
+	- B2T(X) = -x<sub>(w-1)</sub>\*2<sup>(w-1)</sup>+sum(0, w-2, x<sub>i</sub>\*2<sup>i</sup>)
 
 <pre>
 short int x =  15213;
@@ -133,7 +133,7 @@ short int y = -15213;
 + Standard Multiplication Function
 	- Ignores high order *w* bits
 + Implements Modular Arithmetic
-	- UMult(u, v) = u \* v mod 2^w
+	- UMult(u, v) = u \* v mod 2<sup>w</sup>
 + Mult two 'ints' and store in a 'long'
 ---
 ### Power-of-2 Multiply with shift
@@ -148,7 +148,7 @@ short int y = -15213;
 ---
 ### Power-of-2 Divide with Shift
 + Operation
-	- u \>\> k gives floor(u / 2^k)
+	- u \>\> k gives floor(u / 2<sup>k</sup>)
 	- Uses logical shift for unsigned, arithmetic shift for signed
 ---
 ### Why Should I Use Unsigned?
@@ -156,7 +156,7 @@ short int y = -15213;
 	- Easy to make mistakes
 <pre>
 unsigned i;
-for (i = cnt-2; i >=0; i--)
+for (i = count-2; i >=0; i--)
 	a[i] += a[i+1];
 </pre>
 + *Do* Use When Using Bits to Represent Sets
@@ -175,7 +175,7 @@ for (i = cnt-2; i >=0; i--)
 + Representation
 	- Bits to the right of "binary point" represent fractional powers of 2
 	- Represents rational number
-		+ sum(k = -j, i, b\_k \* 2^k)
+		+ sum(k = -j, i, b<sub>k</sub> \* 2<sup>k</sup>)
 + Back to 111.0011
 	- 111 . 0011
 	- 4 + 2 + 1 . (0 + 0 + .125 + 0625)
@@ -193,7 +193,7 @@ for (i = cnt-2; i >=0; i--)
 		+ Lots of cases!
 + How to encode / decode?
 + Numerical Form
-	- (-1)^s M 2^E
+	- (-1)<sup>s</sup> M 2<sup>E</sup>
 	- Sign bit s determines whether number is negative or positive
 	- Significand M normally a fractional value in range [1.0, 2.0)
 	- Exponent E weights value by power of two
