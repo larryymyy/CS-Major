@@ -255,3 +255,79 @@ __GET SPECIAL CASES FROM SLIDES__
 	- Must consider -0 = 0
 	- NaNs problematic
 		+ Will be greater than any other values
+---
+### 8 October 2018
+---
+## Machine Programming I: Basics
+---
++ History of Intel Processors and Architectures
++ C, assembly, machine code
++ Assembly Basic: Registers, operands, move
++ Arithmetic & logic operations
++ Conditional branches
++ Loops
+---
+### Intel x86 Processors
+---
++ Dominate Laptop/Desktop/Server Market
++ Evolutionary Design
+	- Backwards compatible up until 8086, introduce 1978
+	- Added more features as time goes on
++ Complex instruct set computer (CISC)
+	- Many different instructions with many different formats
+		+ But, only small subset encountered with Linux programs
+	- Hard to match performance of Reduced Instruction Set Computers (RISC)
+	- But, Intel has done just that!
+		+ In terms of speed. Less so for low power.
+---
+### C, Assembly, Machine Code
+---
+#### Definitions
+---
++ Instruction Set Architecture: (also ISA) The parts of a processor design that one needs to understand or write assembly/machine code.
+	- Examples: instruction set specification, registers.
++ Microarchitecture: Implementation of the architecture
+	- Examples: cache sizes and core frequency
++ Code Forms:
+	- Machine Code: The byte-level programs that a processor executes
+	- Assembly Code: A text representation of machine code
++ Example ISAs:
+	- Intel: x86m IA32, Itanium, x86-64
+	- ARM: Used in almost all mobile phones
+---
+### Assembly/Machine Code View
+---
+#### Programmer-Visible State
++ PC: Program Conunter
+	- Address of next instructions
+	- Called "RIP" (x86-64)
++ Register File
+	- Heavily used program data
++ Condition codes
+	- Stores status information about most recent arithmetic or logical operation
+	- Used for conditional branching
++ Memory
+	- Byte addressable array
+	- Code and user data
+	- Stack to support procedures
+---
+### Assembly Characteristics: Data Types
+---
++ "Integer" data of 1, 2, 4, or 8 bytes
+	- Data values (signed, unsigned)
+	- Addresses (untyped pointers)
++ Floating Point data of 4, 8, or 10 bytes
++ No aggregate types such as arrays of structures
+	- Just contiguously allocated bytes in memory
+---
+### Assembly Characteristics: Instructions
+---
++ 3 basic types:
+	- Arithmetic:
+		+ Perform arithmetic function on register or memory data
+	- Data transfer:
+		+ Load data from memory into register
+		+ Store register data into memory
+	- Control:
+		+ Unconditional jumps to/from procedures
+		+ Conditional branches

@@ -1,0 +1,40 @@
+Provided Assembly Code
+======================
+
+subq  %rdx, %rsi
+imulq %rsi, %rdi
+salq  $63,  %rsi
+sarq  $63,  %rsi
+movq  %rdi, %rax
+xorq  %rsi, %rax
+
+======================
+a := %rdi
+b := %rsi
+c := %rdx
+temp := %rax ?
+hard := 63
+
+======================
+
+Reduced Assembly (Registers replaced with Variable Names)
+=========================================================
+
+subq  c, b
+imulq b, a
+salq  hard,  b
+sarq  hard,  b
+movq  a, temp
+xorq  b, temp
+
+======================
+
+Operations
+==========
+
+c = c - b
+b = b * a
+hard = hard << b
+hard = hard >> b
+temp = a
+b = b ^ temp
