@@ -135,6 +135,9 @@ void printArray(struct IntArray *array) {
 int main() {
 	struct IntArray * array;
 
+	printf("Kevin Conte\n");
+	printf("Assignment 3, Part 1\n\n");
+
 	/* Same idea as the readIntArray input method, except no negative or zero values allowed */
 	int length = 0, valid, temp;
 	printf("Enter length: ");
