@@ -331,3 +331,30 @@ __GET SPECIAL CASES FROM SLIDES__
 	- Control:
 		+ Unconditional jumps to/from procedures
 		+ Conditional branches
+---
+### 10 October 2018
+---
+### Assembly Basics: Registers, Move, Operands
+---
+#### x86-64 Integer Registers
++ 16, 64-bit Registers
++ %rax is return register
++ x86-64 allows for access to most of the lower size registers
++ %rsp, %rbp, %ebp are special
+---
+#### Moving Data
++ Moving Data
+	- movq *Source, Dest*
+	- Actually a copy instruction, does not clear source register
++ Operand Types
+	- __Immediate__: Constant Integer Data
+		+ Example: $0x400, $-533
+		+ Like C constant, but prefixed with '$'
+		+ Encoded with 1, 2, 4, or 8 bytes
+	- __Register__: One of 16 integer registers
+		+ Example: _%rax, %r13_
+		+ But _%rsp_ reserved for special use
+		+ Others have special uses for particular instructions
+	- __Memory__: 8 consecutive bytes of memory at address given by register
+		+ Simplest example: _(%rax)_
+		+ Various other "address modes"

@@ -66,12 +66,13 @@ void readIntArray(struct IntArray *array) {
 		
 		/* Collect input */
 		printf("Enter int: ");
-		valid = scanf("%d", &value);
+		valid = scanf("%d", &value); /* scanf returns 1 if valid, 0 if invalid, and EOF if no stream to read from */
 		
 		/* Loop until a valid input is collected */
+		/* (if needed, if a valid input was collected the first time, no loop will occur) */
 		while(valid != 1) {
 
-			/* Clear Garbage (otherwise scanf will see the \n character and use it as input, leading to an infinite loop) */
+			/* Clear Garbage (otherwise scanf will use the \n character as input, leading to an infinite loop) */
 			while((temp = getchar()) != EOF && temp != '\n');
 
 			/* Alert user to invalid input */
@@ -103,18 +104,18 @@ void sortIntArray(struct IntArray *array) {
 	int n = array->length; /* To avoid typing out array->length over and over */
 	int * data = array->dataPtr; /* To avoid typing out array->dataPtr[] */
 	for(int i = 0; i < n-1; i++) {
-		/* Next index is assumed to be minimum value */
+		/* Current index's element is assumed to be minimum value */
 		int min = i;
 
 		/* Loop through the rest of the array to see if a smaller value exists */
-		/* If found, set min index to the new min */
+		/* If found, set minimum index to the new minimum index */
 		for(int j = i + 1; j < n; j++) {
 			if(data[j] < data[min]) {
 				min = j;
 			}
 		}
 
-		/* If a new min was found, swap dataPtr[i] with the new min */
+		/* If a new minimum was found, swap dataPtr[i] with the new minimum */
 		if(min != i) {
 			swap(&data[i], &data[min]);
 		}
@@ -134,9 +135,6 @@ void printArray(struct IntArray *array) {
 /* Main Method */
 int main() {
 	struct IntArray * array;
-
-	printf("Kevin Conte\n");
-	printf("Assignment 3, Part 1\n\n");
 
 	/* Same idea as the readIntArray input method, except no negative or zero values allowed */
 	int length = 0, valid, temp;

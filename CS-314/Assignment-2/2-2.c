@@ -15,9 +15,6 @@ unsigned int extract(unsigned int x, int i);
 
 /* Main Method */
 int main() {
-	printf("Kevin Conte\n");
-	printf("Assignment 2, Part 2\n\n");
-
 	printf("extract(0x12345678, 0): 0x%08X\n", extract(0x12345678, 0));
 	printf("extract(0xABCDEF00, 2): 0x%08X\n", extract(0xABCDEF00, 2));
 	return 0;

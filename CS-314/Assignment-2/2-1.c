@@ -15,10 +15,6 @@ int mask(int n);
 
 /* Main Method */
 int main() {
-
-	printf("Kevin Conte\n");
-	printf("Assignment 2, Part 1\n\n");
-
 	printf("mask(0): 0x%X\n", mask(0));
 	printf("mask(1): 0x%X\n", mask(1));
 	printf("mask(2): 0x%X\n", mask(2));

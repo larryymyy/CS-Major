@@ -15,9 +15,6 @@ int ge(float x, float y);
 
 /* Main Method */
 int main() {
-	printf("Kevin Conte\n");
-	printf("Assignment 2, Part 3\n\n");
-
 	printf("ge(0.0f, 0.0f):  %d\n", ge(0.0f, 0.0f));
 	printf("ge(-0.0f, 0.0f): %d\n", ge(-0.0f, 0.0f));
 	printf("ge(-1.0f, 0.0f): %d\n", ge(-1.0f, 0.0f));
@@ -37,9 +34,8 @@ int ge(float x, float y) {
 	ux <<= 1; /* drop sign bit of ux */
 	uy <<= 1; /* drop sign bit of uy */
 	
-	return (ux == 0.0f && uy == 0.0f) ||
-		   (sx < sy) ||
-		   ((sx == sy) && (sx > 0) && (ux <= uy)) ||
-		   ((sx == sy) && (sx == 0) && (ux >= uy));
-
+	return (ux == 0.0f && uy == 0.0f) || /* Both 0: return 1 */
+		   (sx < sy) ||	/* X Positive and Y negative: return 1 */
+		   ((sx == sy) && (sx > 0) && (ux <= uy)) || /* Both Negative, and x closer to zero: return 1 */
+		   ((sx == sy) && (sx == 0) && (ux >= uy)); /* Both Positive and x >= y: return 1 */
 }
