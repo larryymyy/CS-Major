@@ -1,5 +1,6 @@
 #include "main.h"
 
+/* Selects the appropriate sorting method */
 void sort(struct IntArray * array, enum SORT_OPTION option) {
 	switch(option) {
 		case SELECTION:
@@ -20,6 +21,7 @@ void sort(struct IntArray * array, enum SORT_OPTION option) {
 	}
 }
 
+/* Sorts via selection sort */
 void selection_sort(struct IntArray * array) {
 	int n = array->length;
 	int * data = array->dataPtr;
@@ -36,6 +38,7 @@ void selection_sort(struct IntArray * array) {
 	}
 }
 
+/* Sorts via bubble sort */
 void bubble_sort(struct IntArray * array) {
 	int n = array->length;
 	int * data = array->dataPtr;
@@ -52,6 +55,7 @@ void bubble_sort(struct IntArray * array) {
 	}
 }
 
+/* Sorts via insertion sort */
 void insertion_sort(struct IntArray * array) {
 	int n = array->length, i = 1, j;
 	int * data = array->dataPtr;
