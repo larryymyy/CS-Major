@@ -358,3 +358,7 @@ __GET SPECIAL CASES FROM SLIDES__
 	- __Memory__: 8 consecutive bytes of memory at address given by register
 		+ Simplest example: _(%rax)_
 		+ Various other "address modes"
+---
+### LEAQ
+---
++ leaq SRC, DEST
