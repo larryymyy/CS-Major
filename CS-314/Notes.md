@@ -364,4 +364,37 @@ __GET SPECIAL CASES FROM SLIDES__
 ---
 ### LEAQ
 ---
++ Load Effective Address [Quad]
++ Arithmetic Instruction to calculate address ONLY
 + leaq SRC, DEST
++ DOES NOT MOVE DATA
+---
+### Conditional Statements and Loops
+---
++ Single bit registers
+	- CF [Carry Flag]
+	- ZF [Zero Flag]
+	- SF [Sign Flag]
+	- OF [Overflow Flag]
++ Implicitly set (think of it as side effect) by arithmetic operations
+	- Example: <b>addq</b> Src, Dest \<-\> t = a + b
+	- CF set if carry out from most significant bit (unsigned overflow - we'll ignore this)
+	- ZF set if t == 0
+	- SF set if t < 0
+	- OF set if two's complement (signed overflow)
++ Not set by leaq or movq instructions
++ Explicitly Setting by Compare Instruction
+	- cmpq Src2, Src1
+		+ cmpq b,a like computing a- b without setting destination
+	- ZF set if a==b
+	- SF set if (a-b) < 0 (signed)
+	- OF set if two's complement (signed) overflow
++ Explicitly Setting by Test instruction
+	- testq Src2, Src1
+		+ testq b,a like computing a&b without setting destination
+	- ZF set when a&b == 0
+---
+### Jumping
++ jX instructions
+	- Jump to different part of code depending on condition codes
++ __MAKE TABLE FROM SLIDES__
