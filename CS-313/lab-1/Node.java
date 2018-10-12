@@ -1,35 +1,25 @@
-
 public class Node<E> {
-	private E data;
-	private Node<E> next;
-	
-	public Node(E c, Node<E> n){
-	
-		// Set the data and next fields to the corresponding input
-		
-	}
-	
-	public void setData(E d){
-		
-		// Set the "data" data field to the corresponding input
+	Node<E> next;
+	E data;
 
+	public Node(E data, Node<E> next) {
+		this.data = data;
+		this.next = next;
 	}
-	
-	public void setNext(Node<E> n){
 
-		// Set the "next" data field to the corresponding input
+	public void setData(E data) {
+		this.data = data;
+	}
 
+	public void setNext(Node<E> next) {
+		this.next = next;
 	}
-	public E getData(){
 
-		// Return the "data" data field
-		
+	public E getData() {
+		return this.data;
 	}
-	
-	public Node<E> getNext(){
-	
-		// return the "next" data field
-		
+
+	public Node<E> getNext() {
+		return this.next;
 	}
-	
 }

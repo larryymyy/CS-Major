@@ -32,7 +32,7 @@ int main() {
 	}
 
 	printIntArray(array);
-	sort(array, BUBBLE);
+	sort(array, DEFAULT);
 	printIntArray(array);
 	freeIntArray(array);
 

@@ -1,42 +1,48 @@
 
 public class Queue<E> {
-	private Node<E> head;
-	private Node<E> tail;
-	
-	public Queue(){
-		
-		// We want to initialize our Queue to be empty
-		// (ie) set head and tail to be null
-		
-	}
-	
-	public void enqueue(E newData){
-	
-		// Create a new node whose data is newData and whose next node is null
-		// Update head and tail
-		// Hint: Think about what's different for the first node added to the Queue
+	Node<E> head, tail;
 
+	public Queue() {
+		this.head = this.tail = null;
 	}
-	
-	public Node<E> dequeue(){
-	
-		// Return the head of the Queue
-		// Update head
-		// Hint: The order you implement the above 2 tasks matters, so use a temporary node
-	 	//	     to hold important information
-		// Hint: Return null on a empty Queue
 
+	public void enqueue(E data) {
+		Node<E> newNode = new Node<E>(data, null);
+		if(this.tail == null) {
+			this.head = this.tail = newNode;
+			return;
+		}
+		this.tail.setNext(newNode);
+		this.tail = newNode;
 	}
-	
-	public boolean isEmpty(){
-	
-		// Check if the Queue is empty
-		
-	}
-	
-	public void printQueue(){
 
-		// Loop through your queue and print each Node's data
-		
+	public Node<E> dequeue() {
+		if(this.head == null)
+			return null;
+
+		Node<E> headNode = this.head;
+		this.head = this.head.next;
+		if(this.head == null)
+			this.tail = null;
+		return headNode;
+	}
+
+	public boolean isEmpty() {
+		return this.head == null && this.tail == null;
+	}
+
+	public void print() {
+		if(this.isEmpty()) {
+			System.out.println("Queue is empty!");
+			return;
+		}
+		Node<E> current = head;
+		while(current != null) {
+			System.out.print(current.getData());
+			current = current.getNext();
+			if(current != null)
+				System.out.print(" <- ");
+		}
+		System.out.println();
 	}
 }
