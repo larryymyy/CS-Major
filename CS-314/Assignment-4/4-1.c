@@ -12,6 +12,8 @@
 #include <stdlib.h>
 
 /*
+   x86-64
+   ------
    %rdi = a
    %rsi = b
 ===========================================================================
@@ -39,7 +41,6 @@ long loop(long a, long b) {
 	return result;
 }
 
-/* Main Method */
 int main() {
 	long a = 1;
 	long b = 5;

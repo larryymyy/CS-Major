@@ -31,14 +31,15 @@ long sum(long from, long to) {
 	__asm__("movq %0, %%rax # result in rax;" :: "r" ( result ));
 
 	/* Your x86-64 code goes below - comment each instruction... */
-	__asm__(".LOOP:				# label for loop;");
-	__asm__("addq %rdi, %rax	# result += from;");
-	__asm__("incq %rdi			# ++from;");
-	__asm__("cmpq %rsi, %rdi	# compare *from* to *to*;");
-	__asm__("jle .LOOP			# Jump if *from* <= *to* to LOOP");
+	__asm__(".LOOP:				# label for loop;");				/* set label for the loop */
+	__asm__("addq %rdi, %rax	# result += from;");				/* result += from */
+	__asm__("incq %rdi			# ++from;");						/* ++from */
+	__asm__("cmpq %rsi, %rdi	# compare *from* to *to*;");		/* from - to */
+	__asm__("jle .LOOP			# Jump if *from* <= *to* to LOOP"); /* jump to LOOP if from <= to */
 
 	/* Ensure that *result* is in %rax for return - do not modify. */
 	__asm__("movq %%rax, %0 # result in rax;" : "=r" ( result ));
+
 	return result;
 }
 
