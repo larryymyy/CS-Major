@@ -398,3 +398,81 @@ __GET SPECIAL CASES FROM SLIDES__
 + jX instructions
 	- Jump to different part of code depending on condition codes
 + __MAKE TABLE FROM SLIDES__
+---
+### Loops
+---
+404. Line not found  
+---
+#### Do-While Loop Example
++ Consider this C code
+<pre>
+long pcount_do(unsigned long x) {
+	long result = 0;
+	do {
+		result += x & 0x1;
+		x >>= 1;
+	} while(x);
+	return result;
+}
+</pre>
+<pre>
+long pcount_goto(unsigned long x) {
+	long result = 0;
+loop:
+	result += x & 0x1;
+	x >>= 1;
+	if(x) goto loop;
+	return result;
+}
+</pre>
++ __POTENTIAL MIDTERM QUESTION__
++ Count the number of 1's in argument x ("popcount")
++ Use conditional branch to either continue looping or to exit loop
++ CONSTANTS allow compiler to optimize quite a bit
+---
+### Procedures
+---
++ Stack Structure
++ Passing control
++ Passing data
++ Managing local data
++ Illustration of Recursion
+---
+#### Mechanisms in Procedures
++ Passing Control
+	- To beginning of procedure code
+	- Back to return point
++ Passing Data
+	- Procedure arguments
+	- Return Value
++ Managing local data
+	- Allocate during procedure execution
+	- Deallocate upon return
++ Mechanisms all implemented with machine instructions
+---
+#### x86-64 Stack
++ Region of memory managed with stack discipline
++ Grows toward lower address
++ Register <b>%rsp</b> contains lowest stack address
+	- Address of "top" element
++ <b>pushq Src</b>
+	- Fetch operand at Src
+	- Decrement <b>%rsp</b> by 8
+	- Write operand at address given by <b>%rsp</b>
++ <b>popq Dest</b>
+	- Read value at address given by %rsp
+	- Increment %rsp by 8
+	- Store value at Dest (must be register)
+---
+#### Procedure Conrole Flow
++ Use stack to support procedure call and return
++ Procedure call: <b>call label</b>
+	- Push return address on stack
+	- Jump to label
++ Return address:
+	- Address of the next instruction right after call
+	- Example from disassembly
++ Procedure return: ret
+	- Pop address from stack
+	- Jump to address
++ __POTENTIAL MIDTERM QUESTION__
