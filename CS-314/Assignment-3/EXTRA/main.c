@@ -3,7 +3,6 @@
 int main() {
 	setlocale(LC_NUMERIC, "");
 	srand(time(NULL));
-	struct IntArray * array;
 
 	int length = 0, valid, gc;
 
@@ -22,17 +21,20 @@ int main() {
 			valid = 0;
 	}
 
-	array = mallocIntArray(length);
+	struct IntArray * array = mallocIntArray(length);
 
-	//readIntArray(array);
+	//readIntarray(array);
 	/* Values in [-999, 999] */
 	for(int i = 0; i < array->length; i++) {
 		array->dataPtr[i] = rand() % 1000;
 		array->dataPtr[i] *= (rand() % 2 == 0) ? -1 : 1;
 	}
 
+	printf("Unsorted IntArray: \n");
 	printIntArray(array);
-	sort(array, DEFAULT);
+
+	heap_sort(array);
+
 	printIntArray(array);
 	freeIntArray(array);
 

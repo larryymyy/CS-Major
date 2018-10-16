@@ -36,7 +36,7 @@ void swap(int * x, int * y) {
 void printIntArray(struct IntArray * array) {
 	printf("[ ");
 	for(int i = 0; i < array->length - 1; i++) {
-		printf("%d, ", array->dataPtr[i]);
+		printf("%'d, ", array->dataPtr[i]);
 	}
-	printf("%d ]\n", array->dataPtr[array->length - 1]);
+	printf("%'d ]\n\n", array->dataPtr[array->length - 1]);
 }

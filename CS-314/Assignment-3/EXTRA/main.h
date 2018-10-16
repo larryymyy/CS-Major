@@ -6,15 +6,20 @@
 
 int main();
 
-enum SORT_OPTION {
-	SELECTION,
-	BUBBLE,
-	INSERTION,
-	DEFAULT=BUBBLE
-};
-
-void sort(struct IntArray * array, enum SORT_OPTION option);
-
+/* Selection Sort */
 void selection_sort(struct IntArray * array);
+
+/* Bubble Sort */
 void bubble_sort(struct IntArray * array);
+
+/* Insertion Sort */
 void insertion_sort(struct IntArray * array);
+
+/* Merge Sort */
+void merge_sort(struct IntArray * array);
+void _merge_sort(int * array, int n);
+void merge(int * array, int * a, int aCount, int * b, int bCount);
+
+/* Heap Sort */
+void heap_sort(struct IntArray * array);
+void heapify(int * array, int n, int i);
