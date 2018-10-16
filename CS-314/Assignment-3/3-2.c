@@ -35,10 +35,25 @@ int main() {
 	return EXIT_SUCCESS;
 }
 
+/*
+   Provided x86-64 Code
+===========================================================================
+   subq  %rdx, %rsi		# b -= c
+   imulq %rsi, %rdi		# a *= b
+   salq  $63, %rsi		# b <<= 63
+   sarq  $63, %rsi		# b >>= 63
+   movq  %rdi, %rax		# result = a
+   xorq  %rsi, %rax		# result ^= b
+ */
+
 /* Decode method */
 long decode(long a, long b, long c) {
+	long result;
 	b -= c;
 	a *= b;
-	b = (b << 63) >> 63;
-	return a ^ b;
+	b <<= 63;
+	b >>= 63;
+	result = a;
+	result ^= b;
+	return result;
 }

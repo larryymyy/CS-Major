@@ -24,6 +24,7 @@ int sum(int from, int to) {
 
 long sum(long from, long to) {
 	long result = 0;
+
 	/* Ensure that argument *from* is in %rdi */
 	/* argument *to* is in %rsi, *result* is in %rax - do not modify */
 	__asm__("movq %0, %%rdi # from in rdi;" :: "r" ( from ));
@@ -31,11 +32,11 @@ long sum(long from, long to) {
 	__asm__("movq %0, %%rax # result in rax;" :: "r" ( result ));
 
 	/* Your x86-64 code goes below - comment each instruction... */
-	__asm__(".LOOP:				# label for loop;");				/* set label for the loop */
+	__asm__(".LOOP:				# label for loop;");				/* label for the loop */
 	__asm__("addq %rdi, %rax	# result += from;");				/* result += from */
 	__asm__("incq %rdi			# ++from;");						/* ++from */
-	__asm__("cmpq %rsi, %rdi	# compare *from* to *to*;");		/* from - to */
-	__asm__("jle .LOOP			# Jump if *from* <= *to* to LOOP"); /* jump to LOOP if from <= to */
+	__asm__("cmpq %rsi, %rdi	# compare *from* to *to*;");		/* compare *from* to *to* */
+	__asm__("jle .LOOP			# Jump if *from* <= *to* to LOOP"); /* Jump if *from* <= *to* to LOOP */
 
 	/* Ensure that *result* is in %rax for return - do not modify. */
 	__asm__("movq %%rax, %0 # result in rax;" : "=r" ( result ));

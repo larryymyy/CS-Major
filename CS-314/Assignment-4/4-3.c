@@ -54,26 +54,27 @@ int main() {
 		{13,14,15,16}
 	};
 
-	printf("Pre-Transpose: \n");
+	printf("{ ");
 	for(int i = 0; i < N; i++) {
 		printf("{");
 		for(int j = 0; j < N; j++) {
 			printf(" %ld", a[i][j]);
 		}
-		printf(" }\n");
+		printf(" } ");
 	}
-	printf("\n\n");
+	printf("}\n");
 
 	transpose(a);
 
-	printf("Post-Transpose: \n");
+	printf("{ ");
 	for(int i = 0; i < N; i++) {
 		printf("{");
 		for(int j = 0; j < N; j++) {
 			printf(" %ld", a[i][j]);
 		}
-		printf(" }\n");
+		printf(" } ");
 	}
+	printf("}\n");
 
 	return EXIT_SUCCESS;
 }
