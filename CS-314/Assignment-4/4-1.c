@@ -18,27 +18,27 @@
    %rsi = b
 ===========================================================================
 loop:
-	movq  %rsi, %rcx	# Set the %rcx register to the value of 'b'
-	movl  $1, %edx		# Set the mask to the constant value '1'
-	movl  $0, %eax		# Set the result to the constant value '0'
+	movq  %rsi, %rcx	# %rcx = b (to grab least significant bit)
+	movl  $1, %edx		# mask = 1
+	movl  $0, %eax		# result = 0
 .L2:
-	testq %rdx, %rdx	# Test the value of mask and set appropriate flags
-	je    .L4			# If mask is equal to 0, jump to label .L4
-	movq  %rdx, %r8		# Copy the value of mask into register 8
-	andq  %rdi, %r8		# And the value of a with register 8
-	orq   %r8, %rax		# Or the value of register 8 with result
-	salq  %cl, %rdx		# Shift mask left by b
-	jmp   .L2			# Jump to label .L2
+	testq %rdx, %rdx	# test if mask == 0
+	je    .L4			# mask == 0 -> jump to .L4
+	movq  %rdx, %r8		# %r8 = mask
+	andq  %rdi, %r8		# a & %r8  [a & mask]
+	orq   %r8, %rax		# result |= %r8  [result |= (a & mask)]
+	salq  %cl, %rdx		# mask <<= b
+	jmp   .L2			# jump to .L4
 .L4:
-	ret					# Return result
+	ret					# return result
  */
 
 long loop(long a, long b) {
 	long result = 0;
-	for(long mask = 1; mask != 0; mask <<= b) {
-		result |= (a & mask);
+	for(long mask = 1; mask != 0; mask <<= b) { /* Loop until mask is 0, by shifting left by 'b' bits */
+		result |= (a & mask); /* Or the value of result with (a & mask) */
 	}
-	return result;
+	return result; /* Return result */
 }
 
 int main() {

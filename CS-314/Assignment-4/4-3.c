@@ -32,15 +32,14 @@ typedef long array_t[N][N];
 
 void transpose(array_t a) {
 	long * ptr = &a[0][0];
-	long * ij;
-	long * ji;
+	long * ij; /* a[i][j] */
+	long * ji; /* a[j][i] */
 	for(int i = 0; i < N; i++) {
 		for(int j = 0; j < i; j++) {
-			ij = ptr + (N * i) + j;
-			ji = ptr + (N * j) + i;
+			ij = ptr + (N * i) + j; 
+			ji = ptr + (N * j) + i; 
 			long t1 = *ij;
-			long t2 = *ji;
-			*ij = t2;
+			*ij = *ji;
 			*ji = t1;
 		}
 	}
@@ -54,6 +53,7 @@ int main() {
 		{13,14,15,16}
 	};
 
+	/* Print Original Array */
 	printf("{ ");
 	for(int i = 0; i < N; i++) {
 		printf("{");
@@ -66,6 +66,7 @@ int main() {
 
 	transpose(a);
 
+	/* Print Transposed Array */
 	printf("{ ");
 	for(int i = 0; i < N; i++) {
 		printf("{");

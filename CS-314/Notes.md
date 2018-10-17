@@ -476,3 +476,93 @@ loop:
 	- Pop address from stack
 	- Jump to address
 + __POTENTIAL MIDTERM QUESTION__
+---
+#### 17 October 2018
+---
+#### Passing data
++ First 6 Arguments:  
+<pre>
+%rdi
+%rsi
+%rdx
+%rcx
+%r8
+%r9
+</pre>
++ Return value:  
+<pre>
+%rax
+</pre>
++ Stack:  
+<pre>
+...
+Arg <i>n</i>
+...
+Arg 8
+Arg 7
+</pre>
++ Only allocate stack space when needed
+	- If args > 6, extra args get pushed to the stack
+---
+#### Register Saving Conventions
++ When procedure <code>yoo</code> calls <code>who</code>
+	- <code>yoo</code> is the __caller__
+	- <code>who</code> is the __callee__
++ Can register be used for temporary storage?  
+<code>
+yoo:
+	...
+	movq $15213, %rdx
+	call who
+	addq %rdx, %rax
+	...
+	ret
+
+who:
+	...
+	subq $18213, %rdx
+	...
+	ret
+</code>
++ Contents of register %rdx overwritten by <code>who</code>.
++ This could be trouble, something should be done.
+	- Need some coordination
++ Conventions
+	- "Caller saved"
+	- "Callee saved"
++ %rax
+	- Return value
+	- Also caller-saved
+	- Can be modified by procedure
++ %rdi, ... %r9
+	- Arguments
+	- Also caller-saved
+	- Can be modified by procedure
++ %r10, %r11
+	- Caller saved
+---
+#### Managing Local Data
++ Languages that support recursion
+	- C, Pascal, Java
+	- Code must be "Reentrant"
+		+ Multiple simultaneous instantiations of single procedure
+	- Need some place to store state of each instantiation
+		+ Arguments
+		+ Local variables
+		+ Return address
++ Stack allocated in Frames
+	- State for single procedure instantiation
+	- Data for given procedure needed for limited time
+		+ From when called to when return
+#### Stack Frames
++ Contents
+	- Return information
+	- Local Storage
+	- Temporary Storage
++ Management
+	- Space allocated when enter procedure
+		+ "Set-up" code
+		+ Includes push by call instruction
+	- Deallocated when return
+		+ "Finish" code
+		+ Includes pop by ret instruction
