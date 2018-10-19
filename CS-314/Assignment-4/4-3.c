@@ -32,12 +32,13 @@ typedef long array_t[N][N];
 
 void transpose(array_t a) {
 	long * ptr = &a[0][0];
-	long * ij; /* a[i][j] */
-	long * ji; /* a[j][i] */
+	long * ij; /* &a[i][j] */
+	long * ji; /* &a[j][i] */
 	for(int i = 0; i < N; i++) {
 		for(int j = 0; j < i; j++) {
-			ij = ptr + (N * i) + j; 
-			ji = ptr + (N * j) + i; 
+			ij = ptr + (N * i) + j; /* Calculate &a[i][j] */
+			ji = ptr + (N * j) + i; /* Calculate &a[j][i] */
+			/* swap(&a[i][j], &a[j][i]); */
 			long t1 = *ij;
 			*ij = *ji;
 			*ji = t1;
