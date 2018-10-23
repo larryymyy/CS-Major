@@ -1,8 +1,6 @@
-long absdiff(long x, long y) {
-	long result;
-	if (x > y)
-		result = x-y;
+long pcount_r(unsigned long x) {
+	if(x==0)
+		return 0;
 	else
-		result = y-x;
-	return result;
+		return (x & 1) + pcount_r(x >> 1);
 }

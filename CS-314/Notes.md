@@ -566,3 +566,10 @@ who:
 	- Deallocated when return
 		+ "Finish" code
 		+ Includes pop by ret instruction
+---
+### 22 October 2018
+---
+<b><i>Practice Midterm Questions will be posted on Piazza (Noted: 22 October 2018)</i></b></br>
+<b><i>Know %rax (RETURN), %rdi (ARG 0), %rsi (ARG 1)</i></b></br>
+<b><i>Know Memory Address Calculation Equation!!!</i></b></br>
+---
