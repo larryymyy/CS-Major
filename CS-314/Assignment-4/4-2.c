@@ -20,7 +20,7 @@ int sum(int from, int to) {
 	} while (from <= to);
 	return result;
 }
-*/
+ */
 
 long sum(long from, long to) {
 	long result = 0;
