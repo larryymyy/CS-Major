@@ -510,19 +510,20 @@ Arg 7
 	- <code>who</code> is the __callee__
 + Can register be used for temporary storage?  
 <code>
-yoo:
-	...
-	movq $15213, %rdx
-	call who
-	addq %rdx, %rax
-	...
-	ret
-
-who:
-	...
-	subq $18213, %rdx
-	...
-	ret
+yoo:  
+	...  
+	movq $15213, %rdx  
+	call who  
+	addq %rdx, %rax  
+	...  
+	ret  
+  
+  
+who:  
+	...  
+	subq $18213, %rdx  
+	...  
+	ret  
 </code>
 + Contents of register %rdx overwritten by <code>who</code>.
 + This could be trouble, something should be done.
