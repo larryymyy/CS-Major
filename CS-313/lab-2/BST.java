@@ -1,67 +1,126 @@
-public class BST<E extends Comparable<E>>{
-	// Node Class
-	class Node<E extends Comparable<E>> {
-		private E data;
-		private Node<E> leftChild = null, rightChild = null, parent = null;
 
-		// Constructor
-		public Node(E data) { this.data = data; }
-
-		// Methods for accessing data in the node
-		public void setData(E data) { this.data = data; }
-		public E getData() { return this.data; }
-		public void setLeftChild(Node<E> child) { this.leftChild = child; }
-		public Node<E> getLeftChild() { return this.leftChild; }
-		public void setRightChild(Node<E> child) { this.rightChild = child; }
-		public Node<E> getRightChild() { return this.rightChild; }
-		public void setParent(Node<E> parent) { this.parent = parent; }
-		public Node<E> getParent() { return this.parent; }
-	}
-
-
-	// Top of the tree
-	private Node<E> root;
+public class BST<E extends Comparable<E>> {
+	// Properties of the BST
+    private Node<E> root = null;
 
 	// Constructor
-	public BST() { this.root = null; }
+    public BST() { root = null; }
 
-	// Get root of tree
-	public Node<E> getRoot() { return this.root; }
+	// Access data of the tree (i.e. root)
+    public Node<E> getRoot() { return root; }
 
-	// Insert a value into the tree
-	public void insert(E data) {
+	// Insert a value into the BST
+    public void insert(E data) {
+        // Find the right spot in the tree for the new node
+        // Make sure to check if anything is in the tree
+        // Hint: if a node n is null, calling n.getData() will cause an error
 		Node<E> current = this.root;
-
-		// Tree is empty, so we make a root and set the root's data to the passed argument
 		if(current == null) {
 			this.root = new Node<E>(data);
 			return;
 		}
-	}
-
-	// Delete a value from the tree
-	public void delete(E data) {
-
-	}
-
-	// Finds the node containing the value, if it exists
-	public Node<E> find(E data) {
-		return null;
-	}
-
-	// Print out the tree in a specified traversal
-	public void traverse(String order, Node<E> root) {
-		if(root != null) {
-
+		Node<E> parent = current.getParent();
+		while(true) {
+			if(data.compareTo(current.getData()) < 0) {
+				parent = current;
+				current = current.getLeftChild();
+				if(current == null) {
+					current = new Node<E>(data);
+					current.setParent(parent);
+					parent.setLeftChild(current);
+					return;
+				}
+			} else if(data.compareTo(current.getData()) > 0) {
+				parent = current;
+				current = current.getRightChild();
+				if(current == null) {
+					current = new Node<E>(data);
+					current.setParent(parent);
+					parent.setRightChild(current);
+					return;
+				}
+			} else {
+				return;
+			}
 		}
-	}
+    }
 
-	// Get the node containing the smallest value
-	public Node<E> findMin(Node<E> root) {
-		Node<E> current = root;
+	// Find the node containing the passed data, if it exists
+    public Node<E> find(E data) {
+        // Search the tree for a node whose data field is equal to data
+		Node<E> current = this.root;
+		if(current == null)
+			return null;
+		while(true) {
+			if(current.getData().compareTo(data) == 0) {
+				return current;
+			} else if(current.getData().compareTo(data) < 0) {
+				current = current.getLeftChild();
+				if(current == null)
+					return null;
+			} else {
+				current = current.getRightChild();
+				if(current == null)
+					return null;
+			}
+		}
+    }
+
+	// Delete the node containing the passed data, if it exists
+    public void delete(E data) {
+        // Find the right node to be deleted
+
+        // If said node has no children, simply remove it by setting its parent to point to null instead of it.
+        // If said node has one child, delete it by making its parent point to its child.
+        // If said node has two children, then replace it with its successor,
+        //          and remove the successor from its previous location in the tree.
+        // The successor of a node is the left-most node in the node's right subtree.
+        // If the value specified by delete does not exist in the tree, then the structure is left unchanged.
+
+        // Hint: You may want to implement a findMin() method to find the successor when there are two children
+    }
+
+	// Traverse the tree given an order and a root
+    public void traverse(String order, Node<E> top) {
+        if (top != null) {
+            switch (order) {
+                case "preorder":
+                    // Your Code here
+					System.out.print(top.getData() + " ");
+					if(top.getLeftChild() != null)
+						traverse("preorder", top.getLeftChild());
+					if(top.getRightChild() != null)
+						traverse("preorder", top.getRightChild());
+                    break;
+                case "inorder":
+                    // Your Code here
+					if(top.getLeftChild() != null)
+						traverse("inorder", top.getLeftChild());
+					System.out.print(top.getData() + " ");
+					if(top.getRightChild() != null)
+						traverse("inorder", top.getRightChild());
+                    break;
+                case "postorder":
+                    // Your Code here
+					if(top.getLeftChild() != null)
+						traverse("postorder", top.getLeftChild());
+					if(top.getRightChild() != null)
+						traverse("postorder", top.getRightChild());
+					System.out.print(top.getData() + " ");
+                    break;
+            }
+        }
+    }
+
+	// Find the node containing the minimum value of the tree
+    public Node<E> getMin(Node<E> top) {
+        // Return the min node
+		Node<E> current = this.root;
 		while(current.getLeftChild() != null) {
+			Node<E> parent = current;
 			current = current.getLeftChild();
+			current.setParent(parent);
 		}
 		return current;
-	}
+    }
 }

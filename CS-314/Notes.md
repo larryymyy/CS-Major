@@ -573,3 +573,5 @@ who:
 <b><i>Know %rax (RETURN), %rdi (ARG 0), %rsi (ARG 1)</i></b></br>
 <b><i>Know Memory Address Calculation Equation!!!</i></b></br>
 ---
+#### 24 October 2018
+---
