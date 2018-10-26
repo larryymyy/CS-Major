@@ -9,74 +9,63 @@
  */
 
 #include <stdio.h>
-#include <stdlib.h>
+
+/*
+   Provided x86-64 Code
+   ====================
+
+.L3:
+	movq (%rax), %rcx    # t1 = a[i][j]
+	movq (%rdx), %rsi    # t2 = a[j][i]
+	movq %rsi, (%rax)    # a[i][j] = t2
+	movq %rcx, (%rdx)    # a[j][i] = t1
+	addq $8, %rax        # columnPtr += sizeof(long)
+	addq $32, %rdx       # rowPtr += sizeof(long) * N
+	cmpq %r9, %rax       # j < i ?
+	jne  .L3             # loop
+ */
 
 #define N 4
 typedef long array_t[N][N];
 
-/*
-   x86-64
-===========================================================================
-.L3:
-	cmpq %rcx, %rsi		# (i - j)
-	jle  .L7			# jump to .L7 if i <= j
-	movq (%rdx), %r9	# t1 = a[i][j]
-	movq (%rax), %r8	# t2 = a[j][i]
-	movq %r9, (%rax)	# a[i][j] = t2
-	movq %r8, (%rdx)	# a[j][i] = t1
-	addq $8, %rax		# increase column pointer by 8
-	addq $32, %rdx		# increase row pointer by 32
-	addq $1, %rcx		# j += 1
-	jmp .L3
- */
 
+// Transpose method
 void transpose(array_t a) {
-	long * ptr = &a[0][0];
-	long * ij; /* &a[i][j] */
-	long * ji; /* &a[j][i] */
-	for(int i = 0; i < N; i++) {
-		for(int j = 0; j < i; j++) {
-			ij = ptr + (N * i) + j; /* Calculate &a[i][j] */
-			ji = ptr + (N * j) + i; /* Calculate &a[j][i] */
-			/* swap(&a[i][j], &a[j][i]); */
-			long t1 = *ij;
-			*ij = *ji;
-			*ji = t1;
+	long * ptr = &a[0][0]; // Address of the first element, use offsets to find right value
+	for(int i = 0; i < N; ++i) {
+		for(int j = 0; j < i; ++j) {
+			long t1 = *(ptr + (i * N) + j); // a[i][j]
+			*(ptr + (i * N) + j) = *(ptr + (j * N) + i); // a[i][j] = a[j][i]
+			*(ptr + (j * N) + i) = t1; // a[j][i] = a[i][j]
 		}
 	}
 }
 
+
+// Prints out the array
+void print_array(array_t a) {
+	for(int i = 0; i < N; i++) {
+		printf("[ ");
+		for(int j = 0; j < N - 1; j++) {
+			printf("%ld, ", a[i][j]);
+		}
+		printf("%ld ]\n", a[i][N - 1]);
+	}
+	printf("\n");
+}
+
+
+// Main Method
 int main() {
-	array_t a = {
+	array_t array = {
 		{1,2,3,4},
 		{5,6,7,8},
 		{9,10,11,12},
 		{13,14,15,16}
 	};
 
-	/* Print Original Array */
-	printf("{ ");
-	for(int i = 0; i < N; i++) {
-		printf("{");
-		for(int j = 0; j < N; j++) {
-			printf(" %ld", a[i][j]);
-		}
-		printf(" } ");
-	}
-	printf("}\n");
-
-	transpose(a);
-
-	/* Print Transposed Array */
-	printf("{ ");
-	for(int i = 0; i < N; i++) {
-		printf("{");
-		for(int j = 0; j < N; j++) {
-			printf(" %ld", a[i][j]);
-		}
-		printf(" } ");
-	}
-	printf("}\n");
-
-	return EXIT_SUCCESS;
+	print_array(array);
+	transpose(array);
+	print_array(array);
+	return 0;
 }

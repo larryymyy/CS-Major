@@ -9,7 +9,6 @@
  */
 
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
 int sum(int from, int to) {
@@ -22,28 +21,29 @@ int sum(int from, int to) {
 }
  */
 
+// Sum Method
 long sum(long from, long to) {
 	long result = 0;
 
-	/* Ensure that argument *from* is in %rdi */
-	/* argument *to* is in %rsi, *result* is in %rax - do not modify */
-	__asm__("movq %0, %%rdi # from in rdi;" :: "r" ( from ));
-	__asm__("movq %0, %%rsi # to in rsi;" :: "r" ( to ));
-	__asm__("movq %0, %%rax # result in rax;" :: "r" ( result ));
+	// Ensure that argument *from* is in %rdi,
+	// argument *to* is in %rsi, *result* is in %rax - do not modify.
+	__asm__ ("movq %0, %%rdi # from in rdi;" :: "r" ( from ));
+	__asm__ ("movq %0, %%rsi # to in rsi;" :: "r" ( to ));
+	__asm__ ("movq %0, %%rax # result in rax;" :: "r" ( result ));
 
-	/* Your x86-64 code goes below - comment each instruction... */
-	__asm__(".LOOP:				# label for loop");				/* label for the loop */
-	__asm__("addq %rdi, %rax	# result += from");				/* result += from */
-	__asm__("incq %rdi			# ++from");						/* ++from */
-	__asm__("cmpq %rsi, %rdi	# compare *from* to *to*");		/* compare *from* to *to* */
-	__asm__("jle .LOOP			# Jump if *from* <= *to* to LOOP"); /* Jump if *from* <= *to* to LOOP */
+	// Your x86-64 code goes below - comment each instruction...
+	__asm__(".LOOP:");
+	__asm__("  addq %rdi, %rax");  // result += from
+	__asm__("  incq %rdi");        // ++from
+	__asm__("  cmpq %rsi, %rdi");  // from <= to ?
+	__asm__("  jle  .LOOP");       // if so, loop
 
-	/* Ensure that *result* is in %rax for return - do not modify. */
-	__asm__("movq %%rax, %0 # result in rax;" : "=r" ( result ));
-
-	return result;
+	// Ensure that *result* is in %rax for return - do not modify.
+	__asm__ ("movq %%rax, %0 #result in rax;" : "=r" ( result ));
+	return result;	
 }
 
+// Main Method
 int main() {
 
 	long from = 1;
@@ -54,5 +54,5 @@ int main() {
 	to = 5;
 	printf("sum(%ld, %ld): %ld\n", from, to, sum(from, to));
 
-	return EXIT_SUCCESS;
+	return 0;
 }
