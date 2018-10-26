@@ -509,6 +509,8 @@ Arg 7
 	- <code>yoo</code> is the __caller__
 	- <code>who</code> is the __callee__
 + Can register be used for temporary storage?  
+# FIXME
+---
 <code>
 yoo:  
 	...  
@@ -517,14 +519,13 @@ yoo:
 	addq %rdx, %rax  
 	...  
 	ret  
-  
-  
 who:  
 	...  
 	subq $18213, %rdx  
 	...  
 	ret  
 </code>
+---
 + Contents of register %rdx overwritten by <code>who</code>.
 + This could be trouble, something should be done.
 	- Need some coordination
@@ -568,8 +569,53 @@ who:
 		+ "Finish" code
 		+ Includes pop by ret instruction
 ---
-### 22 October 2018
+#### 22 October 2018
 ---
 <b><i>Practice Midterm Questions will be posted on Piazza (Noted: 22 October 2018)</i></b></br>
 <b><i>Know %rax (RETURN), %rdi (ARG 0), %rsi (ARG 1)</i></b></br>
 <b><i>Know Memory Address Calculation Equation!!!</i></b></br>
+<<<<<<< HEAD
+---
+#### 24 October 2018
+---
+### Structures
++ Structure represented as a block of memory
+	- Big enough to hold all the fields
++ Fields ordered according to declaration
+	- Even if another ordering could yield a more compact representation
++ Compiler determines overall size + positions of fields
+	- Machine-level program has no understanding of the structures in the source code
++ Generating Pointer to Array Element
+	- Offset of each structure member determined at compile time
+---
+Why does C refuse to die?
+
+---
+### Memory Layout
++ Stack
+	- Runtime Stack
+	- E.g. Local Variable
++ Heap
+	- Dynamically Allocated as needed
+	- When calling malloc(), new X(), etc.
++ Data
+	- Statically allocated data
+	- E.g. global variables, static variables, string constants
++ Text
+	- Executable machine instructions
+	- Read-only
+---
+### Buffer Overflow
++ Memory reference bugs
++ Generally called a "buffer overflow"
+	- when exceeding the memory size allocated for an array
++ Why a big deal?
+	- Its the #1 technical cause of security vulnerabilities
++ Most common form
+	- Unchecked lengths on string inputs
++ Code Injection
+	- Input string contains byte representation of executable code
+	- Overwrite return address A with address of buffer B
+	- When Q executes ret, will jump to exploit code
+=======
+>>>>>>> 9210f2a3acff97405ed668ddb88896479d948d68
