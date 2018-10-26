@@ -31,12 +31,12 @@ typedef long array_t[N][N];
 
 // Transpose method
 void transpose(array_t a) {
-	long * ptr = &a[0][0]; // Address of the first element, use offsets to find right value
+	long * ptr = &a[0][0]; // Address of the first element, use offsets to find correct value
 	for(int i = 0; i < N; ++i) {
 		for(int j = 0; j < i; ++j) {
-			long t1 = *(ptr + (i * N) + j); // a[i][j]
+			long t1 = *(ptr + (i * N) + j); // t1 = a[i][j]
 			*(ptr + (i * N) + j) = *(ptr + (j * N) + i); // a[i][j] = a[j][i]
-			*(ptr + (j * N) + i) = t1; // a[j][i] = a[i][j]
+			*(ptr + (j * N) + i) = t1; // a[j][i] = t1
 		}
 	}
 }
@@ -57,6 +57,7 @@ void print_array(array_t a) {
 
 // Main Method
 int main() {
+	// Declare array
 	array_t array = {
 		{1,2,3,4},
 		{5,6,7,8},
@@ -64,8 +65,13 @@ int main() {
 		{13,14,15,16}
 	};
 
+	// Print Array
 	print_array(array);
+
+	// Transpose Array
 	transpose(array);
+
+	// Print Array
 	print_array(array);
 	return 0;
 }

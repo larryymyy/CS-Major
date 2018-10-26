@@ -13,6 +13,29 @@ public class lab2 {
 
 		BST<Integer> tree = new BST<Integer>();
 
+		tree.insert(4);
+		tree.insert(2);
+		tree.insert(1);
+		tree.insert(8);
+		tree.insert(16);
+
+		tree.traverse("preorder", tree.getRoot());
+		System.out.println();
+		tree.traverse("inorder", tree.getRoot());
+		System.out.println();
+		tree.traverse("postorder", tree.getRoot());
+		System.out.println();
+
+		tree.delete(1);
+
+		tree.traverse("preorder", tree.getRoot());
+		System.out.println();
+		tree.traverse("inorder", tree.getRoot());
+		System.out.println();
+		tree.traverse("postorder", tree.getRoot());
+		System.out.println();
+
+		/*
 		int numLines = scanner.nextInt();
 		scanner.nextLine();
 
@@ -41,6 +64,7 @@ public class lab2 {
 					break;
 			}
 		}
+		*/
 
         // Don't forget to close your Scanner!
 		scanner.close();

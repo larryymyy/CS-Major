@@ -1,0 +1,35 @@
+0xA1
+10100001
+-128 + 32 + 1
+-95
+
+
+3.25
+11.01
+e = 1 => 1 + 127 = 128
+m = 1.101
+s = 0
+0b01000000010100000000000000000000
+
+
+leaq 12(%rsi, %rdi, 4), %rdi	# x = 4 * x + y + 12
+
+
+long sum(long start) {
+	long result = 0;
+	.LOOP: result += start;
+	--start;
+	if(start)
+		goto .LOOP;
+	return result;
+}
+
+
+sum:
+	movq $0, %rax	 # result = 0
+.LOOP:
+	addq %rdi, %rax  # result += start
+	decq %rdi		 # --start
+	cmpq $0, %rdi    # start - 0 = start
+	jne  .LOOP
+	ret				 # return result

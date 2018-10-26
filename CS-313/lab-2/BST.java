@@ -14,55 +14,46 @@ public class BST<E extends Comparable<E>> {
         // Find the right spot in the tree for the new node
         // Make sure to check if anything is in the tree
         // Hint: if a node n is null, calling n.getData() will cause an error
-		Node<E> current = this.root;
-		if(current == null) {
+		Node<E> current = this.getRoot();
+		if(current != null) {
+			while(true) {
+				if(data.compareTo(current.getData()) < 0) {
+					if(current.getLeftChild() == null) {
+						current.setLeftChild(new Node<E>(data));
+						current.getLeftChild().setParent(current);
+						return;
+					}
+					current = current.getLeftChild();
+				} else if(data.compareTo(current.getData()) > 0) {
+					if(current.getRightChild() == null) {
+						current.setRightChild(new Node<E>(data));
+						current.getRightChild().setParent(current);
+						return;
+					}
+					current = current.getRightChild();
+				} else {
+					return;
+				}
+			}
+		} else {
 			this.root = new Node<E>(data);
 			return;
-		}
-		Node<E> parent = current.getParent();
-		while(true) {
-			if(data.compareTo(current.getData()) < 0) {
-				parent = current;
-				current = current.getLeftChild();
-				if(current == null) {
-					current = new Node<E>(data);
-					current.setParent(parent);
-					parent.setLeftChild(current);
-					return;
-				}
-			} else if(data.compareTo(current.getData()) > 0) {
-				parent = current;
-				current = current.getRightChild();
-				if(current == null) {
-					current = new Node<E>(data);
-					current.setParent(parent);
-					parent.setRightChild(current);
-					return;
-				}
-			} else {
-				return;
-			}
 		}
     }
 
 	// Find the node containing the passed data, if it exists
     public Node<E> find(E data) {
         // Search the tree for a node whose data field is equal to data
-		Node<E> current = this.root;
-		if(current == null)
-			return null;
+		Node<E> current = this.getRoot();
 		while(true) {
-			if(current.getData().compareTo(data) == 0) {
+			if(current.getData().compareTo(data) == 0)
 				return current;
-			} else if(current.getData().compareTo(data) < 0) {
-				current = current.getLeftChild();
-				if(current == null)
-					return null;
-			} else {
+			else if(current.getData().compareTo(data) < 0)
 				current = current.getRightChild();
-				if(current == null)
-					return null;
-			}
+			else
+				current = current.getLeftChild();
+			if(current == null)
+				return null;
 		}
     }
 
@@ -78,6 +69,15 @@ public class BST<E extends Comparable<E>> {
         // If the value specified by delete does not exist in the tree, then the structure is left unchanged.
 
         // Hint: You may want to implement a findMin() method to find the successor when there are two children
+		Node<E> toDelete = find(data);
+		System.out.println(toDelete);
+		if(toDelete == null)
+			return;
+
+		if(toDelete.getLeftChild() == null && toDelete.getRightChild() == null) {
+			toDelete = null;
+			return;
+		}
     }
 
 	// Traverse the tree given an order and a root
@@ -114,7 +114,7 @@ public class BST<E extends Comparable<E>> {
 
 	// Find the node containing the minimum value of the tree
     public Node<E> getMin(Node<E> top) {
-        // Return the min node
+        // Return the min node of the tree
 		Node<E> current = this.root;
 		while(current.getLeftChild() != null) {
 			Node<E> parent = current;

@@ -32,11 +32,13 @@ long sum(long from, long to) {
 	__asm__ ("movq %0, %%rax # result in rax;" :: "r" ( result ));
 
 	// Your x86-64 code goes below - comment each instruction...
-	__asm__(".LOOP:");
-	__asm__("  addq %rdi, %rax");  // result += from
-	__asm__("  incq %rdi");        // ++from
-	__asm__("  cmpq %rsi, %rdi");  // from <= to ?
-	__asm__("  jle  .LOOP");       // if so, loop
+	__asm__(
+			".LOOP:				\n\
+			 addq %rdi, %rax	# result += from\n\
+			 incq %rdi			# ++from\n\
+			 cmpq %rsi, %rdi	# from <= to ?\n\
+			 jle  .LOOP			# loop if from <= to\n"
+		   );
 
 	// Ensure that *result* is in %rax for return - do not modify.
 	__asm__ ("movq %%rax, %0 #result in rax;" : "=r" ( result ));
