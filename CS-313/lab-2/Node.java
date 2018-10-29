@@ -1,19 +1,22 @@
 public class Node<E extends Comparable<E>> {
-	// Properties of the Node
-    private E data;
-    private Node<E> leftChild = null, rightChild = null, parent = null;
+
+	// Node properties
+	private E data;
+	private Node<E> left;
+	private Node<E> right;
 
 	// Constructor
-    public Node(E d) { data = d; }
+	public Node(E data) {
+		this.data = data;
+		this.left = null;
+		this.right = null;
+	}
 
-	// Methods to access data in the Node
-    public void setData(E d) { data = d; }
-    public void setLeftChild(Node<E> lc) { leftChild = lc; }
-    public void setRightChild(Node<E> rc) { rightChild = rc; }
-	public void setParent(Node<E> p) { parent = p; }
-    public E getData() { return data; }
-    public Node<E> getLeftChild() { return leftChild; }
-    public Node<E> getRightChild() { return rightChild; }
-    public Node<E> getParent() { return parent; }
-
+	// Methods to access data in the node
+	public E getData() { return this.data; }
+	public Node<E> getLeft() { return this.left; }
+	public Node<E> getRight() { return this.right; }
+	public void setData(E data) { this.data = data; }
+	public void setLeft(Node<E> node) { this.left = node; }
+	public void setRight(Node<E> node) { this.right = node; }
 }
