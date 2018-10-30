@@ -1,0 +1,190 @@
+# Kevin Conte
+# 951620146
+# 
+# 9 November 2018
+# ================================
+# Assignment 5
+# Part 1
+
+.pos 0x0
+init:
+	# Set stack pointer and base pointer to bottom of stack (highest address)
+	irmovq stack, %rsp
+	irmovq stack, %rbp
+
+	# Initiate main procedure (sorts the array)
+	call   main
+
+	# Terminate (No more instructions)
+	halt
+
+# Array with 16 values, in reversed order (WORST case for selection sort)
+# Ensure that array starts at an address divisibly by 8 (sizeof(long))
+.align 8
+array:
+	.quad 0xF
+	.quad 0xE
+	.quad 0xD
+	.quad 0xC
+	.quad 0xB
+	.quad 0xA
+	.quad 0x9
+	.quad 0x8
+	.quad 0x7
+	.quad 0x6
+	.quad 0x5
+	.quad 0x4
+	.quad 0x3
+	.quad 0x2
+	.quad 0x1
+	.quad 0x0
+
+# Ensure stack is sufficiently large
+.pos 0x100
+stack:
+
+
+
+# -- START MAIN PROCEDURE --
+
+main:
+	irmovq array, %rdi   # arg1 = &array[0]
+	irmovq $16, %rsi     # arg2 = len(array)
+	call   sort
+	ret
+
+# -- END MAIN PROCEDURE --
+
+
+
+# -- START SORT PROCEDURE --
+
+# Sort array using Selection Sort, using array pointer and length of array as arguments
+sort:
+	# save callee-saved values
+	pushq %rbx
+	pushq %rcx
+	pushq %rdx
+
+	irmovq $0, %rcx
+	rrmovq %rsi, %r14
+	isubq  $1, %r14
+
+	sort_loop_i:
+
+		rrmovq %rcx, %rdx
+		iaddq  $1, %rdx
+
+		# assume that i is the min
+		rrmovq %rcx, %rbx
+
+		sort_loop_j:
+			# We need array[j] and array[min]
+			# array[j]
+			# leaq (%rdi, %rdx, 8), %r8:
+			rrmovq %rdx, %r8
+			addq   %r8, %r8 # x2
+			addq   %r8, %r8 # x4
+			addq   %r8, %r8 # x8
+			addq   %rdi, %r8 # + &array[0]
+			mrmovq (%r8), %r8
+
+			# array[min]
+			# leaq(%rdi, %rbx, 8), %r9
+			rrmovq %rbx, %r9
+			addq %r9, %r9 # x2
+			addq %r9, %r9 # x4
+			addq %r9, %r9 # x8
+			addq %rdi, %r9 # + &array[0]
+			mrmovq (%r9), %r9
+
+			# compare array[j] to array[min]
+			# If array[j] < array[min], update min to be j, otherwise continue
+			pushq %r9
+			subq  %r8, %r9
+			popq  %r9
+			jle CONTINUE
+
+			rrmovq %rdx, %rbx
+
+			CONTINUE:
+			# j++, see if we are done with inner loop
+			iaddq $1, %rdx
+			pushq %rdx
+			subq %rsi, %rdx
+			popq  %rdx
+			jl sort_loop_j
+
+		pushq %rcx
+		subq  %rbx, %rcx
+		popq  %rcx
+		# If i == min, no need to swap
+		je   NO_SWAP
+
+		# save original arguments
+		pushq %rdi
+		pushq %rsi
+
+		rrmovq %rdi, %rsi
+
+		# Calculate address of array[min]
+		rrmovq %rbx, %r10
+		addq %r10, %r10
+		addq %r10, %r10
+		addq %r10, %r10
+		addq %r10, %rdi
+
+		# Calculate address of array[i]
+		rrmovq %rcx, %r10
+		addq %r10, %r10
+		addq %r10, %r10
+		addq %r10, %r10
+		addq %r10, %rsi
+
+		# swap array[i] and array[min]
+		call swap
+
+		# retrieve original arguments
+		popq  %rsi
+		popq  %rdi
+
+		NO_SWAP:
+
+		# i++, see if we are done with outer loop
+		iaddq $1, %rcx
+		pushq %rcx
+		subq %r14, %rcx
+		popq %rcx
+		jl sort_loop_i
+
+	# retrieve callee-saved values
+	popq  %rdx
+	popq  %rcx
+	popq  %rbx
+	ret
+
+# -- END SORT PROCEDURE --
+
+
+
+# -- START SWAP PROCEDURE --
+
+# Swap to values, given two memory addresses
+swap:
+	# Save callee-saved registers to stack
+	pushq  %rbx
+	pushq  %rcx
+
+	# Swap values at %rdi and %rsi
+	# Use %rbx and %rcx as temporary registers
+	mrmovq (%rdi), %rbx
+	mrmovq (%rsi), %rcx
+	rmmovq %rbx, (%rsi)
+	rmmovq %rcx, (%rdi)
+
+	# Retrieve callee-saved registers from stack
+	popq   %rcx
+	popq   %rbx
+	ret
+
+# -- END SWAP PROCEDURE --
