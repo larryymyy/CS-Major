@@ -1,0 +1,118 @@
+Algorithm Analysis
+==================
+Big O
+-----
++ Worst Possible Case
++ Runtime is ALWAYS less than or equal to this case
+
+Ex:
+	for i to n:
+		for j to n:
+			do stuff
+
+Complexity of this algorithm is O(n²)
+
+Big Omega
+---------
++ Best Possible Case
++ Runtime is ALWAYS greater than or equal to this case
+
+Ex:
+	Taking previous example:
+Complexity is Ω(n²)
+
+Big Theta
+---------
+f(n) = Θ(g(n)) iff f(n) = O(g(n)) AND f(n) = Ω(g(n))
+f and g have the same growth rate
+
+Loop Invariants
+---------------
++ Prove correctness of an algorithm
++ Three Phases:
+	- Initiaization (base case)
+	- Invariance Maintenance (induction)
+	- Termination
+Structure:
+code:
+<init>
+while y
+	do L
+
+initialization: show that 'a' is true after the <init> phase of the code has been executed
+maintenance: show that 'a' ^ 'y' is true, then 'a' will be true after one execution of the loop body L
+termination: the loop finishes when 'y' is false, so argue that ¬y ^ a is the desired outcome
+
+Example:
+
+input: integer n > 0
+output: integer k, array of b of k bits
+--initialization
+int k = 0
+int t = n
+array b = [] of bit
+--loop
+while t > 0
+	b[k] = (t mod 2)
+	k = k + 1
+	t = t div 2
+--end
+return k,b
+
+'y': t>0
+'a':
+ + t >= 0
+ + let m = sum(i=0, k-1, b[i]*2^i) be the number represented by b in base 2. Then n = 2^k*t + m
+
+*** GET EXAMPLE FROM NOTE SHEET ***
+
+Simple Data Structures
+======================
+Stacks:
+	First In Last Out
+	properties:
+		+ push, pop
+Queues:
+	First In First Out
+	properites:
+		+ enqueue, dequeue
+Linked List:
+	Holds a value and a reference to the element
+
+
+Heaps and HeapSort
+==================
+Insert:
+append to end of list and call some heapify function (min or max)
+insert(x):
+	heapsize++
+	A[heapsize] = x
+	i = heapsize
+	while i > 1 and A[i] > A[parent(i)]:
+		swap A[i] and A[parent(i)]
+		i = parent(i)
+
+Max-Heapify(A, i):
+l <- Left(i)
+r <- Right(i)
+if l <= heap-size[A] and A[l] > A[i]
+	largest <- l
+else
+	largest <- i
+if r <= heap-size[A] and A[r] < A[largest]
+	largest <- r
+if largest != i
+	exchange A[i] and A[largest]
+	Max-Heapify(A, largest)
+
+Build-Max-Heap(A):
+heap-size[A] <- length[A]
+for i <- floor(length[A]/2) downto 1
+	Max-Heapify(A, i)
+
+Heap-Sort(A):
+Build-Max-Heap(A):
+for i = length[A] downto 2
+	exchange A[1] and A[i]
+	heap-size[A] <- heap-size[A] - 1
+	Max-Heapify(A, 1)

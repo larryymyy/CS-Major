@@ -1,0 +1,4 @@
+change loop checks to:
+	+ and
+	+ jne
+Re-evaluate multiplications

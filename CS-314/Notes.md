@@ -617,5 +617,80 @@ Why does C refuse to die?
 	- Input string contains byte representation of executable code
 	- Overwrite return address A with address of buffer B
 	- When Q executes ret, will jump to exploit code
-=======
->>>>>>> 9210f2a3acff97405ed668ddb88896479d948d68
+---
+#### 31 October 2018
+---
+# Y86-64
+---
++ Program Registers
+	- 15 registers (omit %r15). Each 64 bits
++ Condition Codes
+	- Single bit flags set by arithmetic or logical instructions
+	- ZF, Zero
+	- SF, Negative (Sign)
+	- OF, Overflow
++ Program counter
+	- Indicates address of next instruction
++ Program Status
+	- Indicates either normal operation or some error condition
++ Memory
+	- Byte-addressable storage array
+	- Words stored in little-endian byte order
+---
+### Format
+---
++ 1-10 bytes of information read from memory
+	- Can determine instruction length from first byte
+	- Not as many instruction types, and simpler encoding than with x86-64
++ Each accesses and modifies some part(s) of the program state
++ Each register has a 4-bit ID
+	- Same encoding as x86-64
++ Register ID 15 (0xF) indicates "no register"
+	- Will use this in our hardware design in multiple places
+---
+### Instructions
+---
++ Addition
+	- Add value in register rA to that in register in rB
+		+ Store result in register rB
+		+ Note that Y86-64 only allows addition to applied to register data
+	- Set condition codes based on result
+	- eg. addq %rax, %rsi
+		+ Encoding: 60 06
+	- Two-byte encoding
+		+ First indicates instruction type
+		+ Second gives source and destination registers
++ Arithmetic and Logical Operations
+	- Refer to generically as OPq
+	- Encodings differ only by "function code"
+		+ Low-order 4 bytes in first instruction word
+	- Set condition codes as side effect
++ Move Operations
+	- Like the x86-64 movq instruction
+	- Simpler format for memory addresses
+	- Give different names to keep them distinct
++ Conditional Move Instructions
+	- Refer to generically as "cmovXX"
+	- Encodeings differ only by "function code"
+	- Based on values of condition codes
+	- Variants of rrmovq instruction
+		+ (Conditionally) copy value from source to destination register
++ Jump Instructions
+	- Refer to generically as "jXX"
+	- Encodings differ only by "function code"
++ Stack operations
+	- pushq
+	- popq
++ Subroutines
+	- call
+	- ret
++ Misc.
+	- nop
+	- halt
+---
+### Status Conditions
+---
++ Normal Operation
++ Halt Instruction
++ Bad Address Encountered
++ Invalid instruction encountered
