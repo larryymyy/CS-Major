@@ -22,22 +22,22 @@ init:
 # Ensure that array starts at an address divisibly by 8 (sizeof(long))
 .align 8
 array:
-	.quad 0xF
-	.quad 0xE
-	.quad 0xD
-	.quad 0xC
-	.quad 0xB
-	.quad 0xA
-	.quad 0x9
-	.quad 0x8
-	.quad 0x7
-	.quad 0x6
-	.quad 0x5
-	.quad 0x4
-	.quad 0x3
-	.quad 0x2
-	.quad 0x1
-	.quad 0x0
+	.quad 0x00000000000F
+	.quad 0x00000000000E
+	.quad 0x00000000000D
+	.quad 0x00000000000C
+	.quad 0x00000000000B
+	.quad 0x00000000000A
+	.quad 0x000000000009
+	.quad 0x000000000008
+	.quad 0x000000000007
+	.quad 0x000000000006
+	.quad 0x000000000005
+	.quad 0x000000000004
+	.quad 0x000000000003
+	.quad 0x000000000002
+	.quad 0x000000000001
+	.quad 0x000000000000
 
 # Ensure stack is sufficiently large
 .pos 0x100
