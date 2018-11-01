@@ -66,14 +66,17 @@ sort:
 	pushq %rcx
 	pushq %rdx
 
-	irmovq $0, %rcx
+	irmovq $0, %rcx    # i = 0 (used as an iterator)
+	irmovq $1, %r13    # Load constant '1' into %r13
 	rrmovq %rsi, %r14
-	isubq  $1, %r14
+	# We know that a constant value of 1 is in %r13, so we can reuse that register for incrementing/decrementing
+	subq   %r13, %r14
 
 	sort_loop_i:
 
 		rrmovq %rcx, %rdx
-		iaddq  $1, %rdx
+		# %r13 holds constant 1
+		addq  %r13, %rdx
 
 		# assume that i is the min
 		rrmovq %rcx, %rbx
@@ -109,7 +112,8 @@ sort:
 
 			CONTINUE:
 			# j++, see if we are done with inner loop
-			iaddq $1, %rdx
+			# %r13 holds constant 1
+			addq %r13, %rdx
 			pushq %rdx
 			subq %rsi, %rdx
 			popq  %rdx
@@ -151,7 +155,8 @@ sort:
 		NO_SWAP:
 
 		# i++, see if we are done with outer loop
-		iaddq $1, %rcx
+		# %r13 holds constant 1
+		addq %r13, %rcx
 		pushq %rcx
 		subq %r14, %rcx
 		popq %rcx
