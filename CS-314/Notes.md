@@ -694,3 +694,33 @@ Why does C refuse to die?
 + Halt Instruction
 + Bad Address Encountered
 + Invalid instruction encountered
+---
+#### 2 November 2018
+---
+### Overview of Logic Design
+---
++ Fundamental Hardware Requirements
+	- Communication
+		+ How to get values from one place to another
+	- Computation
+	- Storage
++ Bits are our friends
+	- Everything expressed in terms of values of 0 and 1
+	- Communication
+		+ Low or High Voltage on wire
+	- Computation
+		+ Compute boolean functions
+	- Storage
+		+ Store bits of information
++ Computing with Logic Gates
+	- Outputs are boolean functions of input
+	- Respond continuously to changes in inputs
+		+ With some, small delay
++ Bit Level Multiplexor
+	- Control signal s
+	- Data signals a and b
+	- Output a when s=1, b when s=0
++ ALU
+	- Combinational Logic
+	- Control Signal selects function computed
+	- Also computes values for condition codes
