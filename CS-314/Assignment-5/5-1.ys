@@ -8,12 +8,11 @@
 
 .pos 0x0
 init:
-	# Set stack pointer and base pointer to bottom of stack (highest address)
+	# Set stack pointer pointer to bottom of stack (highest address)
 	irmovq stack, %rsp
-	irmovq stack, %rbp
 
 	# Initiate main procedure (sorts the array)
-	call   main
+	call main
 
 	# Terminate (No more instructions)
 	halt
@@ -40,7 +39,7 @@ array:
 	.quad 0x000000000000
 
 # Ensure stack is sufficiently large
-.pos 0x100
+.pos 0x180
 stack:
 
 
@@ -50,7 +49,7 @@ stack:
 main:
 	irmovq array, %rdi   # arg1 = &array[0]
 	irmovq $16, %rsi     # arg2 = len(array)
-	call   sort
+	call sort
 	ret
 
 # -- END MAIN PROCEDURE --
@@ -69,28 +68,28 @@ sort:
 	irmovq $0, %rcx    # i = 0 (used as an iterator)
 	irmovq $1, %r13    # Load constant '1' into %r13
 	rrmovq %rsi, %r14
-	# We know that a constant value of 1 is in %r13, so we can reuse that register for incrementing/decrementing
-	subq   %r13, %r14
+	# We know that a constant value of 1 is in %r13, so we can reuse that register for incrementing and decrementing
+	subq %r13, %r14
 
-	sort_loop_i:
+	sort_loop_i: # Outer loop of selection sort
 
-		rrmovq %rcx, %rdx
+		rrmovq %rcx, %rdx  # j = i
 		# %r13 holds constant 1
-		addq  %r13, %rdx
+		addq  %r13, %rdx   # j++
 
 		# assume that i is the min
-		rrmovq %rcx, %rbx
+		rrmovq %rcx, %rbx  # min = i
 
-		sort_loop_j:
-			# We need array[j] and array[min]
+		sort_loop_j:  # Inner loop of selection sort
+			# We need array[j] and array[min] to compare to one another
 			# array[j]
-			# leaq (%rdi, %rdx, 8), %r8:
+			# In x86-64: leaq (%rdi, %rdx, 8), %r8:
 			rrmovq %rdx, %r8
 			addq   %r8, %r8 # x2
 			addq   %r8, %r8 # x4
 			addq   %r8, %r8 # x8
 			addq   %rdi, %r8 # + &array[0]
-			mrmovq (%r8), %r8
+			# Equation: j * 8 + &array[0]
 
 			# array[min]
 			# leaq(%rdi, %rbx, 8), %r9
@@ -99,15 +98,21 @@ sort:
 			addq %r9, %r9 # x4
 			addq %r9, %r9 # x8
 			addq %rdi, %r9 # + &array[0]
+			# Equation: min * 8 + &array[0]
+
+			# We want to compare the values in memory, not the addresses
+			# To do so, replace the values in the registers (address) with the values in memory
+			mrmovq (%r8), %r8
 			mrmovq (%r9), %r9
 
 			# compare array[j] to array[min]
 			# If array[j] < array[min], update min to be j, otherwise continue
-			pushq %r9
-			subq  %r8, %r9
-			popq  %r9
-			jle CONTINUE
+			pushq %r8
+			subq  %r9, %r8     # array[j] - array[min]
+			popq  %r8
+			jge CONTINUE  # array[j] >= array[min]
 
+			# If array[j] < array[min], set min = j
 			rrmovq %rdx, %rbx
 
 			CONTINUE:
@@ -125,14 +130,17 @@ sort:
 		# If i == min, no need to swap
 		je   NO_SWAP
 
+		# Otherwise, swap array[i] and array[min]
 		# save original arguments
 		pushq %rdi
 		pushq %rsi
 
+		# Clone the value in %rdi (&array[0]) into %rsi, since we will be swapping two addresses
 		rrmovq %rdi, %rsi
 
 		# Calculate address of array[min]
 		rrmovq %rbx, %r10
+		# leaq (%rdi, %r10, 8), %rdi
 		addq %r10, %r10
 		addq %r10, %r10
 		addq %r10, %r10
@@ -140,6 +148,7 @@ sort:
 
 		# Calculate address of array[i]
 		rrmovq %rcx, %r10
+		# leaq (%rsi, %r10, 8), %rsi
 		addq %r10, %r10
 		addq %r10, %r10
 		addq %r10, %r10

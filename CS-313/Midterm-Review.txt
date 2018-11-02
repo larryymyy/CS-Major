@@ -1,30 +1,11 @@
 Algorithm Analysis
 ==================
-Big O
------
-+ Worst Possible Case
-+ Runtime is ALWAYS less than or equal to this case
-
-Ex:
-	for i to n:
-		for j to n:
-			do stuff
-
-Complexity of this algorithm is O(n²)
-
-Big Omega
----------
-+ Best Possible Case
-+ Runtime is ALWAYS greater than or equal to this case
-
-Ex:
-	Taking previous example:
-Complexity is Ω(n²)
-
-Big Theta
----------
-f(n) = Θ(g(n)) iff f(n) = O(g(n)) AND f(n) = Ω(g(n))
-f and g have the same growth rate
+Time Complexity
+---------------
+Look at largest term and remove constant
+IGNORE CONSTANTS
+f(n) << g(n)
+i.e. f(n) = O(g(n))
 
 Loop Invariants
 ---------------
@@ -105,7 +86,7 @@ if largest != i
 	exchange A[i] and A[largest]
 	Max-Heapify(A, largest)
 
-Build-Max-Heap(A):
+Build-Max-Heap(A): O(n)
 heap-size[A] <- length[A]
 for i <- floor(length[A]/2) downto 1
 	Max-Heapify(A, i)
@@ -116,3 +97,23 @@ for i = length[A] downto 2
 	exchange A[1] and A[i]
 	heap-size[A] <- heap-size[A] - 1
 	Max-Heapify(A, 1)
+
+
+BSTs
+====
+Insert {data} into empty BST
+Draw Tree
+maybe # permutations of same tree
+Delete a few values
+
+Given list {a1, a2, ..., an}
+for i := 1 to n:
+	insert(ai)
+T.inorder
+
+what does it do? Sorts values
+time complexity? Worst Case: O(n²)
+				 Average Case:  O(n * lg(n))
+
+
+
