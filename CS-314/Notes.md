@@ -724,3 +724,60 @@ Why does C refuse to die?
 	- Combinational Logic
 	- Control Signal selects function computed
 	- Also computes values for condition codes
+---
+#### 5 November 2018
+---
+#### SEQ Stages
++ Fetch
+	- Read instruction from instruction memory
++ Decode
+	- Read program registers
++ Execute
+	- Compute value or address
++ Memory
+	- Read/Write Data
++ Write Back
+	- Write Program Registers
++ PC
+	- Update program counter
+---
+#### Instruction Decoding
++ Instruction Format
+	- Instruction byte
+	- Optional register byte
+	- Optional constant word
++ Example:
+	- icode:ifun rA:rB valc
+	- Instruction
+		+ icode:ifun
+	- Register Byte
+		+ rA:rB
+	- Constant Word
+		+ valc
+---
+### Y86-64
+---
+# GET FROM SLIDES (Week 7)
+#### Fetch Logic
++ Predefined Blocks
+	- PC: Register containing PC
+	- Instruction Memory: Read 10 bytes (PC -> PC + 9)
+	- Split: Divide instruction byte into icode and ifun
+	- Align: Get fields for rA, rB, and valC
++ Constrol Logic:
+	- Need regids: Does this instruction have a register byte?
+	- Need valC: Does this instruction have a constant word?
+
+#### Decode Logic
++ Register File
+	- Read ports A, B
+	- Write ports E, M
+	- Addresses are register IDs or 15(0xF) (no access)
++ Control Logic:
+	- srcA, srcB: read port addresses
+	- dstE, dstM: write port addresses
+
+#### Execute Logic
++ Units
+	- ALU
+		+ Implements 4 required functions
