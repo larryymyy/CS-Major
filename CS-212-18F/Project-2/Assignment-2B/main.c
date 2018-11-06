@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 int main() {
+	/* Hard-coded array of 100 values */
     int array[100] = { 
 		252, 657, 268, 402, 950, 66, 391, 285, 133, 577,
 		649, 166, 987, 314, 954, 214, 920, 230, 904, 801,
@@ -14,22 +15,18 @@ int main() {
 		705, 953, 765, 637, 765, 158, 166, 599, 70, 927
 	};
 
-	// Print array pre-sort
-	for(int i = 0; i < 10; i++) {
-		for(int j = 0; j < 10; j++) {
-			printf("%3d ", *(&array[0] + (i * 10) + j));
-		}
-		printf("\n");
-	}
-	printf("\n\n");
-
-	// Sort via selection sort
+	/* Sort via selection sort */
 	for(int i = 0; i < 99; i++) {
+		/* Assume current value is the smallest */
 		int min = i;
+
+		/* Iterate rest of array, looking for a smaller value */
 		for(int j = i; j < 100; j++) {
 			if(array[j] < array[min])
 				min = j;
 		}
+
+		/* Swap array[i] and array[min] if and only if 'i' is not equal to 'min' */
 		if(min != i) {
 			int t = array[i];
 			array[i] = array[min];
@@ -37,7 +34,8 @@ int main() {
 		}
 	}
 
-	// Print array post-sort
+	/* Print array post-sort */
+	/* 10 Rows and 10 Columns, evenly spaced */
 	for(int i = 0; i < 10; i++) {
 		for(int j = 0; j < 10; j++) {
 			printf("%3d ", *(&array[0] + (i * 10) + j));

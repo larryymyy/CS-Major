@@ -1,0 +1,24 @@
+4. [15] The balance factor of a node 'v' in a binary tree is defined to be the height
+   of the left subtree of 'v' minus the height of the right subtree of 'v'. The height of
+   a null node is defined to be -1. Suppose you are given a binary tree 'T' whose
+   nodes have a balance factor field: v.balfac which has not yet been initialized.
+   Write pseudo-code which will correctly assign values to the balance factor fields
+   of all nodes of 'T'
+
+   Your algorithm should run in linear time. In addition to v.balfac, you will be
+   using the fields v.lchild, v.rchild, and T.root
+
+
+setBalance(Node v):
+	if(v == null):
+		return
+	setBalance(v.lchild)
+	setBalance(v.rchild)
+	v.balfac = getBalance(v.lchild) - (v.rchild)
+	return
+
+getBalance(Node v):
+	if(v == null):
+		return -1
+	else:
+		return v.balfac
