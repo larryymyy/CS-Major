@@ -38,6 +38,9 @@ array:
 	.quad 0x000000000001
 	.quad 0x000000000000
 
+# Ensure stack is sufficiently large
+.pos 0x180
+stack:
 
 
 
@@ -199,8 +202,3 @@ swap:
 	ret
 
 # -- END SWAP PROCEDURE --
-
-# Ensure stack is sufficiently large
-.pos 0x220
-stack:
-
