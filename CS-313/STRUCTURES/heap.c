@@ -54,10 +54,10 @@ void sort(Heap * heap) {
 
 int main() {
 	Heap * heap = malloc(sizeof(Heap));
-	heap->length = 7;
+	heap->length = 9;
 	heap->values = malloc(heap->length * sizeof(int));
 	for(int i = 0; i < heap->length; i++)
-		heap->values[i] = i + 1;
+		heap->values[i] = (15 - i);
 	printHeap(heap);
 	sort(heap);
 	printHeap(heap);
