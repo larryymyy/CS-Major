@@ -5,9 +5,7 @@
 /* Pixel struct */
 typedef struct {
 	/* Color values of the pixel */
-	unsigned char r;
-	unsigned char g;
-	unsigned char b;
+	unsigned char r, g, b;
 } Pixel;
 
 /* Image struct */
@@ -44,17 +42,16 @@ int main(int argc, char * argv[]) {
 	YellowDiagonal(&source, &yellowDiag);
 	WriteImage("yellow_diagonal.pnm", &yellowDiag);
 
-#if 0
 	/* Combine two images, placing one on the left and one on the right */
 	LeftRightCombine(&source, &yellowDiag, &leftRight);
 	WriteImage("2G_output.pnm", &leftRight);
-#endif
 
 	exit(EXIT_SUCCESS);
 }
 
 /* Verifies that the input files exist */
 void VerifyInput() {
+	fprintf(stderr, "Verifying input files . . . \n");
 	FILE *f_in = fopen("2G_input.pnm", "r");
 	if (f_in == NULL) {
 		fprintf(stderr, "Cannot open 2G_input.pnm for reading.\n");
@@ -68,24 +65,39 @@ void VerifyInput() {
 		exit(EXIT_FAILURE);
 	}
 	fclose(f_out);
+	fprintf(stderr, "Verified!\n");
 }
 
 /* Reads an image from a file into an Image struct */
 void ReadImage(char * filename, Image * img) {
 	fprintf(stderr, "Reading image \"%s\"\n", filename);
 
-	char buff[16];
-	int maxval;
 	FILE * f_in = fopen(filename, "r");
 
-	fgets(buff, sizeof(buff), f_in);
-	fscanf(f_in, "%d %d", &img->width, &img->height);
-	fscanf(f_in, "%d", &maxval);
+	char magicNum[128];
+	int width, height, maxval;
+	if(f_in == NULL) {
+		fprintf(stderr, "Unable to open \"%s\" for reading!\n", filename);
+		exit(EXIT_FAILURE);
+	}
 
-	img->pixels = (Pixel *)malloc(img->width * img->height * sizeof(Pixel));
-	fread(img->pixels, 3 * img->width, img->height, f_in);
+	fscanf(f_in, "%s\n%d %d\n%d\n", magicNum, &width, &height, &maxval);
+	fprintf(stdin, "%s\n%d %d\n%d\n", magicNum, width, height, maxval);
+
+	if(strcmp(magicNum, "P6") != 0) {
+		fprintf(stderr, "Unable to read \"%s\" because it is not a PNM file!\n", filename);
+		fclose(f_in);
+		exit(EXIT_FAILURE);
+	}
+
+	img->width = width;
+	img->height = height;
+	img->pixels = (Pixel *) malloc(img->width * img->height * sizeof(Pixel));
+
+	fread(img->pixels, sizeof(Pixel), img->width * img->height, f_in);
 
 	fclose(f_in);
+
 	fprintf(stderr, "Done reading image \"%s\"\n", filename);
 }
 
@@ -93,15 +105,17 @@ void ReadImage(char * filename, Image * img) {
 void WriteImage(char * filename, Image * img) {
 	fprintf(stderr, "Writing image \"%s\"\n", filename);
 
-	FILE * f_out = fopen(filename, "w");
+	FILE * f_out = fopen(filename, "wb");
+	if(f_out == NULL) {
+		fprintf(stderr, "Unable to open \"%s\" for writing!\n", filename);
+		exit(EXIT_FAILURE);
+	}
 
 	fprintf(f_out, "P6\n");
 	fprintf(f_out, "%d %d\n", img->width, img->height);
-	fprintf(f_out, "%d", 255);
+	fprintf(f_out, "%d\n", 255);
 
-	fwrite(img->pixels, 3 * img->width, img->height, f_out);
-
-	fputc('\0', f_out);
+	fwrite(img->pixels, sizeof(Pixel), img->width * img->height, f_out);
 
 	fclose(f_out);
 
@@ -123,14 +137,9 @@ int GetPixelIndex(int width, int height, int row, int column) {
 	return row*width + column;
 }
 
-// Places a yellow line along the diagonal of an image
+/* Places a yellow line along the diagonal of an image */
 void YellowDiagonal(Image * src, Image * dest) {
 	fprintf(stderr, "Executing YellowDiagonal\n");
-
-	dest->width = src->width;
-	dest->height = src->height;
-
-	dest->pixels = (Pixel *) malloc(sizeof(Pixel) * dest->width * dest->height);
 
 	/* HINTS: 
 	 *   You will need to assign values to every data member of the output.
@@ -138,19 +147,48 @@ void YellowDiagonal(Image * src, Image * dest) {
 	 *   a new array.
 	 *   Yellow in R/G/B is 255/255/0.
 	 */
-	
-	for(int i = 0; i < dest->height; i++) {
-		for(int j = 0; j < dest->width; j++) {
-			int index = GetPixelIndex(dest->width, dest->height, i, j);
-			if(i == j) {
-				dest->pixels[index].r = 0xFF;
-				dest->pixels[index].g = 0xFF;
-				dest->pixels[index].b = 0x00;
+
+	int x = src->width;
+	int y = src->height;
+
+	dest->width = x;
+	dest->height = y;
+	dest->pixels = (Pixel *)malloc(x * y * sizeof(Pixel));
+	memcpy(dest->pixels, src->pixels, x * y * sizeof(Pixel));
+
+	for(int i = 0; i < y; i++) {
+		int index = GetPixelIndex(x, y, i, i);
+		dest->pixels[index].r = 0xFF;
+		dest->pixels[index].g = 0xFF;
+		dest->pixels[index].b = 0x00;
+	}
+
+	fprintf(stderr, "Done executing YellowDiagonal\n");
+}
+
+/* Combine Two images, image one on the left, image two on the right */
+void LeftRightCombine(Image * left, Image * right, Image * dest) {
+	fprintf(stderr, "Executing LeftRightCombine\n");
+
+	int x = left->width + right->width;
+	int y = left->height;
+	dest->width = x;
+	dest->height = y;
+
+	dest->pixels = (Pixel *) malloc(x * y * sizeof(Pixel));
+
+	for(int i = 0; i < y; i++) {
+		for(int j = 0; j < x; j++) {
+			int index = GetPixelIndex(x, y, i, j);
+			if(j < left->width) {
+				int srcIndex = GetPixelIndex(left->width, left->height, i, j);
+				dest->pixels[index] = left->pixels[srcIndex];
 			} else {
-				dest->pixels[index] = src->pixels[index];
+				int srcIndex = GetPixelIndex(right->width, right->height, i, j - left->width);
+				dest->pixels[index] = right->pixels[srcIndex];
 			}
 		}
 	}
 
-	fprintf(stderr, "Done executing YellowDiagonal\n");
+	fprintf(stderr, "Done executing LeftRightCombine\n");
 }
