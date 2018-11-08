@@ -18,7 +18,6 @@ typedef struct
  *   img:	  a pointer to an Image struct.  You put the data from the
  *			 file in this struct
  */
-
 void ReadImage(char *filename, Image *img) {
 	fprintf(stderr, "Reading image \"%s\"\n", filename);
 
@@ -42,7 +41,6 @@ void ReadImage(char *filename, Image *img) {
  *   img:	  a pointer to an Image struct.  You put the data from the
  *			 file in this struct
  */
-
 void WriteImage(char *filename, Image *img) {
 	fprintf(stderr, "Writing image \"%s\"\n", filename);
 

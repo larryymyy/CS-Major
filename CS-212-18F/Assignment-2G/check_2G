@@ -32,7 +32,7 @@ if [[ ! -f 2G_input.pnm ]] ; then
    exit 1
 fi
 
-gcc proj2G.c
+gcc main.c
 
 echo "RUNNING YOUR PROGRAM"
 echo ""
