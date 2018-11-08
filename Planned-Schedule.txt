@@ -1,8 +1,0 @@
-WINTER 2019
------------
-CIS 315:	Mon., Wed., Fri.		-> 4:00 - 4:50
-CIS 330: 	Mon., Wed.		  		-> 2:00 - 3:20
-	Lab: 	Fri.			  		-> 2:00 - 2:50
-MATH 201:	Mon., Wed.		  		-> 10:00 - 10:50
-MATH 342:	Mon., Tue., Wed., Fri.	-> 9:00 - 9:50
-MATH 281:   Tue., Thu.				-> 4:00 - 5:50
