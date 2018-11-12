@@ -17,12 +17,12 @@ else
 	
 	# Test Time Complexity of inserts
 	start=$SECONDS
-	java -cp $1 lab3 < /home/users/smergend/public/cs313/lab3/insertTest1.txt > $1/outputInsert1.txt
+	java -cp $1 lab3 < ./test-data/insertTest1.txt > $1/outputInsert1.txt
 	I1=$?
 	durI1=$(( SECONDS - start ))
 	
 	start=$SECONDS
-	java -cp $1 lab3 < /home/users/smergend/public/cs313/lab3/insertTest2.txt > $1/outputInsert2.txt
+	java -cp $1 lab3 < ./test-data/insertTest2.txt > $1/outputInsert2.txt
 	I2=$?
 	durI2=$(( SECONDS - start ))
 	
@@ -38,11 +38,11 @@ else
 		
 		# Check to see if test 1 test printed enough
 		A=$(wc -l < $1/outputInsert1.txt)
-		B=$(wc -l < /home/users/smergend/public/cs313/lab3/outputInsert1.txt)
+		B=$(wc -l < ./test-data/outputInsert1.txt)
 		
 		# Check to see if test 2 printed enough
 		C=$(wc -l < $1/outputInsert2.txt)
-		D=$(wc -l < /home/users/smergend/public/cs313/lab3/outputInsert2.txt)	
+		D=$(wc -l < ./test-data/outputInsert2.txt)	
 			
 		if [ $A != $B -o $C != $D ]; then
 			echo Failed to print out insert commands correctly.
@@ -54,14 +54,14 @@ else
 			echo "* Part c) Correctness                                                          *"
 			
 			# Compare the outputs
-			X1=$(diff -w -U 0 $1/outputInsert1.txt /home/users/smergend/public/cs313/lab3/outputInsert1.txt | grep -v ^@ | tail -n +3 | wc -l)
+			X1=$(diff -w -U 0 $1/outputInsert1.txt ./test-data/outputInsert1.txt | grep -v ^@ | tail -n +3 | wc -l)
 			Z1=$[$X1/2]
 			
 			if [ $Z1 -ne 0 ]; then
 				echo Failed the first insert test. 
 				echo Estimated score \for lab 1: 10/50
 			else			
-				X2=$(diff -w -U 0 $1/outputInsert2.txt /home/users/smergend/public/cs313/lab3/outputInsert2.txt | grep -v ^@ | tail -n +3 | wc -l)
+				X2=$(diff -w -U 0 $1/outputInsert2.txt ./test-data/outputInsert2.txt | grep -v ^@ | tail -n +3 | wc -l)
 				Z2=$[$X2/2]
 				
 				if [ $Z2 -ne 0 ]; then
@@ -75,7 +75,7 @@ else
 					
 					# Test Time Complexity of maximum
 					start=$SECONDS
-					java -cp $1 lab3 < /home/users/smergend/public/cs313/lab3/maximumTest.txt > $1/outputM.txt
+					java -cp $1 lab3 < ./test-data/maximumTest.txt > $1/outputM.txt
 					M1=$?
 					durM1=$(( SECONDS - start ))
 					
@@ -91,7 +91,7 @@ else
 						
 						# Check to see if test 1 test printed enough
 						A=$(wc -l < $1/outputM.txt)
-						B=$(wc -l < /home/users/smergend/public/cs313/lab3/outputM.txt)
+						B=$(wc -l < ./test-data/outputM.txt)
 			
 						if [ $A != $B ]; then
 							echo Failed to print out maximum commands correctly.
@@ -103,7 +103,7 @@ else
 							echo "* Part c) Correctness                                                          *"
 							
 							# Compare the outputs
-							X1=$(diff -w -U 0 $1/outputM.txt /home/users/smergend/public/cs313/lab3/outputM.txt | grep -v ^@ | tail -n +3 | wc -l)
+							X1=$(diff -w -U 0 $1/outputM.txt ./test-data/outputM.txt | grep -v ^@ | tail -n +3 | wc -l)
 							Z1=$[$X1/2]
 			
 							if [ $Z1 -ne 0 ]; then
@@ -117,7 +117,7 @@ else
 								
 								# Test Time Complexity of extractMax
 								start=$SECONDS
-								java -cp $1 lab3 < /home/users/smergend/public/cs313/lab3/extractMaxTest.txt > $1/outputEM.txt
+								java -cp $1 lab3 < ./test-data/extractMaxTest.txt > $1/outputEM.txt
 								EM1=$?
 								durEM1=$(( SECONDS - start ))
 						
@@ -133,7 +133,7 @@ else
 							
 									# Check to see if test 1 test printed enough
 									A=$(wc -l < $1/outputEM.txt)
-									B=$(wc -l < /home/users/smergend/public/cs313/lab3/outputEM.txt)
+									B=$(wc -l < ./test-data/outputEM.txt)
 			
 									if [ $A != $B ]; then
 										echo Failed to print out extractMax commands correctly.
@@ -145,7 +145,7 @@ else
 										echo "* Part c) Correctness                                                          *"
 							
 										# Compare the outputs
-										X1=$(diff -w -U 0 $1/outputM.txt /home/users/smergend/public/cs313/lab3/outputM.txt | grep -v ^@ | tail -n +3 | wc -l)
+										X1=$(diff -w -U 0 $1/outputM.txt ./test-data/outputM.txt | grep -v ^@ | tail -n +3 | wc -l)
 										Z1=$[$X1/2]
 				
 										if [ $Z1 -ne 0 ]; then
@@ -159,7 +159,7 @@ else
 								
 											# Test Time Complexity of isEmpty
 											start=$SECONDS
-											java -cp $1 lab3 < /home/users/smergend/public/cs313/lab3/isEmptyTest.txt > $1/outputIE.txt
+											java -cp $1 lab3 < ./test-data/isEmptyTest.txt > $1/outputIE.txt
 											IE=$?
 											durIE=$(( SECONDS - start ))
 						
@@ -175,7 +175,7 @@ else
 							
 												# Check to see if test 1 test printed enough
 												A=$(wc -l < $1/outputIE.txt)
-												B=$(wc -l < /home/users/smergend/public/cs313/lab3/outputIE.txt)
+												B=$(wc -l < ./test-data/outputIE.txt)
 			
 												if [ $A != $B ]; then
 													echo Failed to print out isEmpty commands correctly.
@@ -187,7 +187,7 @@ else
 													echo "* Part c) Correctness                                                          *"
 							
 													# Compare the outputs
-													X1=$(diff -w -U 0 $1/outputIE.txt /home/users/smergend/public/cs313/lab3/outputIE.txt | grep -v ^@ | tail -n +3 | wc -l)
+													X1=$(diff -w -U 0 $1/outputIE.txt ./test-data/outputIE.txt | grep -v ^@ | tail -n +3 | wc -l)
 													Z1=$[$X1/2]
 				
 													if [ $Z1 -ne 0 ]; then
@@ -201,13 +201,13 @@ else
 								
 														# Test Time Complexity of test1
 														start=$SECONDS
-														java -cp $1 lab3 < /home/users/smergend/public/cs313/lab3/inputTest1.txt > $1/outputTest1.txt
+														java -cp $1 lab3 < ./test-data/inputTest1.txt > $1/outputTest1.txt
 														O1=$?
 														durO1=$(( SECONDS - start ))
 														
 														# Test Time Complexity of test2
 														start=$SECONDS
-														java -cp $1 lab3 < /home/users/smergend/public/cs313/lab3/inputTest2.txt > $1/outputTest2.txt
+														java -cp $1 lab3 < ./test-data/inputTest2.txt > $1/outputTest2.txt
 														O2=$?
 														durO2=$(( SECONDS - start ))
 														
@@ -224,11 +224,11 @@ else
 							
 															# Check to see if test 1 test printed enough
 															A=$(wc -l < $1/outputTest1.txt)
-															B=$(wc -l < /home/users/smergend/public/cs313/lab3/outputTest1.txt)
+															B=$(wc -l < ./test-data/outputTest1.txt)
 															
 															# Check to see if test 2 test printed enough
 															C=$(wc -l < $1/outputTest2.txt)
-															D=$(wc -l < /home/users/smergend/public/cs313/lab3/outputTest2.txt)
+															D=$(wc -l < ./test-data/outputTest2.txt)
 			
 															if [ $A != $B -o $C != $D ]; then
 																echo Failed to print out combination commands correctly.
@@ -240,11 +240,11 @@ else
 																echo "* Part c) Correctness                                                          *"
 							
 																# Compare the outputs
-																X1=$(diff -w -U 0 $1/outputTest1.txt /home/users/smergend/public/cs313/lab3/outputTest1.txt | grep -v ^@ | tail -n +3 | wc -l)
+																X1=$(diff -w -U 0 $1/outputTest1.txt ./test-data/outputTest1.txt | grep -v ^@ | tail -n +3 | wc -l)
 																Z1=$[$X1/2]
 																
 																# Compare the outputs
-																X2=$(diff -w -U 0 $1/outputTest1.txt /home/users/smergend/public/cs313/lab3/outputTest1.txt | grep -v ^@ | tail -n +3 | wc -l)
+																X2=$(diff -w -U 0 $1/outputTest1.txt ./test-data/outputTest1.txt | grep -v ^@ | tail -n +3 | wc -l)
 																Z2=$[$X2/2]
 				
 																if [ $Z1 -ne 0 -o $Z2 -ne 0 ]; then
@@ -267,15 +267,15 @@ else
 																	fi
 																	echo "********************************************************************************"
 																	echo "* Running Test 8/7: Extra Credit                                               *"
-																	java -cp $1 lab3 < /home/users/smergend/public/cs313/lab3/EC.txt > $1/outputEC.txt
+																	java -cp $1 lab3 < ./test-data/EC.txt > $1/outputEC.txt
 																	EC=$?
 																	
 																	# Compare the sizes of outputs
 																	A=$(wc -l < $1/outputEC.txt)
-																	B=$(wc -l < /home/users/smergend/public/cs313/lab3/outputEC.txt)
+																	B=$(wc -l < ./test-data/outputEC.txt)
 																	
 																	# Compare the outputs
-																	XE=$(diff -w -U 0 $1/outputEC.txt /home/users/smergend/public/cs313/lab3/outputEC.txt | grep -v ^@ | tail -n +3 | wc -l)
+																	XE=$(diff -w -U 0 $1/outputEC.txt ./test-data/outputEC.txt | grep -v ^@ | tail -n +3 | wc -l)
 																	ZE=$[$XE/2]
 															
 				
