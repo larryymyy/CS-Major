@@ -1,0 +1,67 @@
+66
+insert 7
+insert 10
+insert 9
+print
+isEmpty
+insert 8
+maximum
+insert 21
+extractMax
+print
+extractMax
+extractMax
+extractMax
+extractMax
+isEmpty
+insert 1
+insert 2
+insert 3
+insert 4
+insert 5
+insert 6
+insert 7
+insert 8
+insert 9
+insert 10
+insert 19
+insert 18
+insert 17
+insert 16
+insert 15
+insert 14
+insert 13
+insert 12
+insert 11
+insert 20
+insert 22
+insert 24
+insert 25
+insert 21
+insert 23
+print
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax
+extractMax

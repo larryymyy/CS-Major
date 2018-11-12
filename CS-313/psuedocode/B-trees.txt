@@ -1,0 +1,30 @@
+Insert(T, k):
+	r = T.root
+	if r.n == 2t - 1:
+		s = Allocate-Node()
+		T.root = s
+		s.leaf = FALSE
+		s.n = 0
+		s.c_1 = r
+		Split-Child(s, 1)
+		Insert-Nonfull(s, k)
+	else:
+		Insert-Nonfull(r, k)
+
+Insert-Nonfull(x, k):
+	i = x.n
+	if x.leaf:
+		while i >= 1 and k < x.key_i:
+			x.key_(i + 1) = x.key_i
+			i = i - 1
+		x.key_(i + 1) = k
+		x.n = x.n + 1
+	else:
+		while i >= 1 and k < x.key_i:
+			i = i - 1
+		Disk-Read(x.c_i)
+		if x.c_i.n == 2t - 1:
+			Split-Child(x, i)
+			if k > x.key_i:
+				i = i + 1
+		Insert-Nonfull(x.c_i, k)

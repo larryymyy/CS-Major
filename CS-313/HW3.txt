@@ -1,0 +1,5 @@
+1. Insert into an initially empty 2-3-4 tree, in the order given, the following values:
+	[12, 13, 17, 10, 4, 6, 9, 15, 30, 25, 20, 40]
+   Show the intermediate trees after each insertion that causes a split
+
+
