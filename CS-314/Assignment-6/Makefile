@@ -9,4 +9,4 @@ all:
 	gcc -Og -o 6-2 6-2.c
 
 clean:
-	rm -rf 6-*
+	rm -rf 6-1 6-2
