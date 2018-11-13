@@ -1,4 +1,0 @@
-Part 2b
-=======
-Operations unable to be pipelined:
-----------------------------------
