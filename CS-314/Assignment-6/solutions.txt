@@ -1,0 +1,17 @@
+Assignment 6
+=============
+Part 2-A
+--------
+Cycles / Instruction sourced from: https://www.agner.org/optimize/instruction_tables.pdf
+
+
+
+
+Part 2-b
+========
+sum += u[i] * v[i] cannot be pipelined because it depends on the results of u[i] * v[i].
+It cannot start the addition of: sum + (u[i] * v[i]) until u[i] * v[i] has been calculated.
+
+Similarly, i++ cannot be pipelined until sum += u[i] * v[i] has been calculated as it is an 
+arithmetic operation. Thus, it must wait for the previous operation to finish since it will
+be setting processor flags.

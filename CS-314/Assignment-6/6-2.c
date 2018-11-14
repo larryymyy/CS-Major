@@ -8,6 +8,7 @@
    Part 2
  */
 
+#include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
@@ -38,17 +39,50 @@ void inner(float * u, float * v, int length, float * dest) {
 
 void inner2(float * u, float * v, int length, float * dest) {
 	int i;
+	float sum = 0.0f;
 	for(i = 0; i < length; i += 4) {
-
+		float a = u[i] * v[i];
+		float b = u[i + 1] * v[i + 1];
+		float c = u[i + 2] * v[i + 2];
+		float d = u[i + 3] * v[i + 3];
+		sum += a + b + c + d;
 	}
 }
 
-int main() {
-	long val = 0;
+
+int main(int argc, char * argv[]) {
+	setlocale(LC_NUMERIC, "");
+
+	unsigned long long N = strtoull(argv[1], NULL, 10);
+
 	struct timeval start, end;
+	long elapsed;
+
+	float * u = malloc(sizeof(float) * N);
+	float * v = malloc(sizeof(float) * N);
+	float result;
+
+	for(int i = 0; i < N; i++) {
+		u[i] = (float)i;
+		v[i] = (float)i + 2.0;
+	}
+
+	printf("N = %'llu\n", N);
+
 	gettimeofday(&start, NULL);
+	inner(u, v, N, &result);
 	gettimeofday(&end, NULL);
-	long elapsed = (end.tv_sec - start.tv_sec) * 1000000LL + (end.tv_usec - start.tv_usec);
-	printf("%.3f\n", elapsed / 1000000.0);
+	elapsed = (end.tv_sec - start.tv_sec) * 1000000LL + (end.tv_usec - start.tv_usec);
+	printf("inner: %.3f sec\n", elapsed / 1000000.0);
+
+	gettimeofday(&start, NULL);
+	inner2(u, v, N, &result);
+	gettimeofday(&end, NULL);
+	elapsed = (end.tv_sec - start.tv_sec) * 1000000LL + (end.tv_usec - start.tv_usec);
+	printf("inner2: %.3f sec\n\n", elapsed / 1000000.0);
+
+	free(u);
+	free(v);
+
 	return 0;
 }

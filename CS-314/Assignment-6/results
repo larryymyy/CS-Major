@@ -1,0 +1,36 @@
+N = 100
+inner: 0.000 sec
+inner2: 0.000 sec
+
+N = 1,000
+inner: 0.000 sec
+inner2: 0.000 sec
+
+N = 10,000
+inner: 0.000 sec
+inner2: 0.000 sec
+
+N = 100,000
+inner: 0.001 sec
+inner2: 0.000 sec
+
+N = 1,000,000
+inner: 0.007 sec
+inner2: 0.000 sec
+
+N = 10,000,000
+inner: 0.079 sec
+inner2: 0.007 sec
+
+N = 100,000,000
+inner: 0.536 sec
+inner2: 0.034 sec
+
+N = 1,000,000,000
+inner: 5.896 sec
+inner2: 0.276 sec
+
+N = 1,500,000,000
+inner: 8.889 sec
+inner2: 0.492 sec
+

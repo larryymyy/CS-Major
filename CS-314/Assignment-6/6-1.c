@@ -52,16 +52,16 @@ void print_array(array_t a) {
 
 int main() {
 	array_t a = {
-		{ 1, 2, 3, 4},
-		{ 5, 6, 7, 8},
-		{ 9,10,11,12},
-		{13,14,15,16}
+		{0,0,0,0},
+		{0,0,0,0},
+		{0,0,0,0},
+		{0,0,0,0}
 	};
 
 	print_array(a);
 	printf("\n");
 
-	f_optimized(a, 2, 2);
+	f_optimized(a, 1, 2);
 
 	print_array(a);
 	printf("\n");
