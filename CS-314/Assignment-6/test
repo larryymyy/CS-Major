@@ -22,6 +22,3 @@ echo "DONE"
 echo "./6-2 1,000,000,000 >> results"
 ./6-2 1000000000 >> results
 echo "DONE"
-echo "./6-2 1,500,000,000 >> results"
-./6-2 1500000000 >> results
-echo "DONE"

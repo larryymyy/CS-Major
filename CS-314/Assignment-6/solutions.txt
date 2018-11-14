@@ -2,16 +2,30 @@ Assignment 6
 =============
 Part 2-A
 --------
-Cycles / Instruction sourced from: https://www.agner.org/optimize/instruction_tables.pdf
+
+.L87:
+	movss (%rbx, %rdx, 4), %xmm0
+	mulss (%rax, %rdx, 4), %xmm0
+	adds  %xmm0, %xmm1
+	addq  $1, %rdx
+	cmpq  %rcx, %rdx
+	jl    .L87
+
+            1       2       3       4       5       6       7       8       9      10     11     12     13    14
+        +--------------------------------------------------------------------------------------------------------+
+Stage 1 | movss | addq  |               | mulss |                               | adds |             | cmpq | jl |
+Stage 2 |       | movss |                       | mulss |                              | adds |                  |
+Stage 3 |               | movss |                       | mulss |                             | adds |           |
+Stage 4 |                       | movss |                       | mulss |                                        |
+Stage 5 |                                                               | mulss |                                |
+        +--------------------------------------------------------------------------------------------------------+
 
 
-
-
-Part 2-b
-========
+Part 2-B
+--------
 sum += u[i] * v[i] cannot be pipelined because it depends on the results of u[i] * v[i].
 It cannot start the addition of: sum + (u[i] * v[i]) until u[i] * v[i] has been calculated.
 
-Similarly, i++ cannot be pipelined until sum += u[i] * v[i] has been calculated as it is an 
-arithmetic operation. Thus, it must wait for the previous operation to finish since it will
-be setting processor flags.
+cmpq cannot be pipelined either because the next instruction (jl) depends on the processor
+flags set by cmpq. Thus, cmpq MUST be executed when no other operation is being executed in
+order to ensure the jl evaluates correctly

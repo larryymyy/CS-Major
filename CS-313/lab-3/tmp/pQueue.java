@@ -22,14 +22,6 @@ public class pQueue<E extends Comparable<E>> {
 	}
 	
 	public void print() {
-		MaxHeap<E> temp = new MaxHeap<E>(this.heap.getSize());
 		System.out.print("Current Queue: ");
-		while(!this.heap.isEmpty()) {
-			E val = this.heap.extractMax();
-			System.out.print(val + ",");
-			temp.insert(val);
-		}
-		System.out.println();
-		this.heap = temp;
 	}
 }

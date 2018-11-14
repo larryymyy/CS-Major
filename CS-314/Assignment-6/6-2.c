@@ -40,13 +40,16 @@ void inner(float * u, float * v, int length, float * dest) {
 void inner2(float * u, float * v, int length, float * dest) {
 	int i;
 	float sum = 0.0f;
-	for(i = 0; i < length; i += 4) {
+	for(i = 0; i < length - 3; i += 4) {
+		/* Calculate accumulators */
 		float a = u[i] * v[i];
 		float b = u[i + 1] * v[i + 1];
 		float c = u[i + 2] * v[i + 2];
 		float d = u[i + 3] * v[i + 3];
+
 		sum += a + b + c + d;
 	}
+	*dest = sum;
 }
 
 
@@ -62,7 +65,7 @@ int main(int argc, char * argv[]) {
 	float * v = malloc(sizeof(float) * N);
 	float result;
 
-	for(int i = 0; i < N; i++) {
+	for(int i = 0; i < N; i += 4) {
 		u[i] = (float)i;
 		v[i] = (float)i + 2.0;
 	}
@@ -79,7 +82,7 @@ int main(int argc, char * argv[]) {
 	inner2(u, v, N, &result);
 	gettimeofday(&end, NULL);
 	elapsed = (end.tv_sec - start.tv_sec) * 1000000LL + (end.tv_usec - start.tv_usec);
-	printf("inner2: %.3f sec\n\n", elapsed / 1000000.0);
+	printf("inner2: %.3f sec\n", elapsed / 1000000.0);
 
 	free(u);
 	free(v);
