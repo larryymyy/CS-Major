@@ -1,0 +1,51 @@
+Part 6-2 [b]
+========================================================================================================================
+The operations that cannot be pipelined are: adds.
+Because floating point addition is order operation specific,
+adds must be executed sequentially. I found in my testing that
+on smaller sets, order did not matter as much, but as the sum became
+bigger, the order in which values are added to it could drastically
+change the result.
+
+Also the addq instruction cannot be pipelined because it sets processor flags
+that jl requires. If addq is executed while another arithmetic operation
+is being executed, the two operations most likely have different effects
+on the processor flags; leading to inconsistent and unpredictable jumping.
+
+Because of this, a lower CPE bound for this loop is:
+movss: 1
+mulss: 6 (1 for loading from memory, and an additional 5 for the multiplication)
+adds:  3 (according to slides)
+addq:  1 (integer arithmetic is nominal)
+cmpq:  1 (integer arithmetic)
+jl  :  1 (integer arithmetic)
+=========
+Added together gives us a lower CPE bound of 13 per loop iteration.
+
+========================================================================================================================
+Part 6-2 [d]
+========================================================================================================================
+Machine 1
+=========
++------------+-------------+-------------+
+|     N      |    inner    |   inner2    |
++------------+-------------+-------------+
++------------+-------------+-------------+
+| 10         | 10       us | 9        us |
++------------+-------------+-------------+
+| 100        | 11       us | 11       us |
++------------+-------------+-------------+
+| 1000       | 27       us | 26       us |
++------------+-------------+-------------+
+| 10000      | 207      us | 191      us |
++------------+-------------+-------------+
+| 100000     | 2.167    ms | 1.864    ms |
++------------+-------------+-------------+
+| 1000000    | 16.881   ms | 15.806   ms |
++------------+-------------+-------------+
+| 10000000   | 143.373  ms | 141.107  ms |
++------------+-------------+-------------+
+| 100000000  | 1.045   sec | 923.461  ms |
++------------+-------------+-------------+
+| 1000000000 | 10.639  sec | 9.383   sec |
++------------+-------------+-------------+

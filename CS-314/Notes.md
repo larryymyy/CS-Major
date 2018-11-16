@@ -757,7 +757,6 @@ Why does C refuse to die?
 ---
 ### Y86-64
 ---
-# GET FROM SLIDES (Week 7)
 #### Fetch Logic
 + Predefined Blocks
 	- PC: Register containing PC
@@ -781,3 +780,5 @@ Why does C refuse to die?
 + Units
 	- ALU
 		+ Implements 4 required functions
+---
+# STUDY LATCHES
