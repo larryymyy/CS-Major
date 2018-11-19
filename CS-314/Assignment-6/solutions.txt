@@ -1,31 +1,51 @@
-Assignment 6
-=============
-Part 2-A
---------
+Part 6-2 [b]
+========================================================================================================================
+The operations that cannot be pipelined are: adds.
+Because floating point addition is order operation specific,
+adds must be executed sequentially. I found in my testing that
+on smaller sets, order did not matter as much, but as the sum became
+bigger, the order in which values are added to it could drastically
+change the result.
 
-.L87:
-	movss (%rbx, %rdx, 4), %xmm0
-	mulss (%rax, %rdx, 4), %xmm0
-	adds  %xmm0, %xmm1
-	addq  $1, %rdx
-	cmpq  %rcx, %rdx
-	jl    .L87
+Also the addq instruction cannot be pipelined because it sets processor flags
+that jl requires. If addq is executed while another arithmetic operation
+is being executed, the two operations most likely have different effects
+on the processor flags; leading to inconsistent and unpredictable jumping.
 
-            1       2       3       4       5       6       7       8       9      10     11     12     13    14
-        +--------------------------------------------------------------------------------------------------------+
-Stage 1 | movss | addq  |               | mulss |                               | adds |             | cmpq | jl |
-Stage 2 |       | movss |                       | mulss |                              | adds |                  |
-Stage 3 |               | movss |                       | mulss |                             | adds |           |
-Stage 4 |                       | movss |                       | mulss |                                        |
-Stage 5 |                                                               | mulss |                                |
-        +--------------------------------------------------------------------------------------------------------+
+Because of this, a lower CPE bound for this loop is:
+movss: 1
+mulss: 6 (1 for loading from memory, and an additional 5 for the multiplication)
+adds:  3 (according to slides)
+addq:  1 (integer arithmetic is nominal)
+cmpq:  1 (integer arithmetic)
+jl  :  1 (integer arithmetic)
+=========
+Added together gives us a lower CPE bound of 13 per loop iteration.
 
-
-Part 2-B
---------
-sum += u[i] * v[i] cannot be pipelined because it depends on the results of u[i] * v[i].
-It cannot start the addition of: sum + (u[i] * v[i]) until u[i] * v[i] has been calculated.
-
-cmpq cannot be pipelined either because the next instruction (jl) depends on the processor
-flags set by cmpq. Thus, cmpq MUST be executed when no other operation is being executed in
-order to ensure the jl evaluates correctly
+========================================================================================================================
+Part 6-2 [d]
+========================================================================================================================
+Machine 1
+=========
++------------+-------------+-------------+
+|     N      |    inner    |   inner2    |
++------------+-------------+-------------+
++------------+-------------+-------------+
+| 10         | 10       us | 9        us |
++------------+-------------+-------------+
+| 100        | 11       us | 11       us |
++------------+-------------+-------------+
+| 1000       | 27       us | 26       us |
++------------+-------------+-------------+
+| 10000      | 207      us | 191      us |
++------------+-------------+-------------+
+| 100000     | 2.167    ms | 1.864    ms |
++------------+-------------+-------------+
+| 1000000    | 16.881   ms | 15.806   ms |
++------------+-------------+-------------+
+| 10000000   | 143.373  ms | 141.107  ms |
++------------+-------------+-------------+
+| 100000000  | 1.045   sec | 923.461  ms |
++------------+-------------+-------------+
+| 1000000000 | 10.639  sec | 9.383   sec |
++------------+-------------+-------------+

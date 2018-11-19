@@ -1,0 +1,36 @@
+Assignment 7
+=-=-=-=-=-=-=
+
+Part 1
+======
++--------------------------------------+
+| /* Provided C Code */                |
+|                                      |
+| struct ColorPoint {                  |
+| 	long c;                            |
+| 	long m;                            |
+| 	long y;                            |
+| 	long k;                            |
+| };                                   |
+| struct ColorPoint points[16][16];    |
+|                                      |
+| void f() {                           |
+| 	long sum = 0;                      |
+| 	for(int i = 0; i < 16; i++) {      |
+| 		for(int j = 0; j < 16; j++) {  |
+| 			sum += points[i][j].c;     |
+| 			sum += points[i][j].m;     |
+| 			sum += points[i][j].y;     |
+| 			sum += points[i][j].k;     |
+| 		}                              |
+| 	}                                  |
+| }                                    |
++--------------------------------------+
+
+
+* 4096-byte direct-mapped data cache w/ 64-byte blocks (8 x 8 bytes)
+* sizeof(long) == 8
+* points begins with memory address 0.
+* The cache is initially empty
+* The only memory access are to the entries of the array points. Variables i,
+  j, and sum are stored in registers

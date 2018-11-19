@@ -1,0 +1,16 @@
+
+
+Decoding Addresses
+==================
+
+
+Address:
+	+--------+--------+--------+
+	| t bits | s bits | o bits |
+	+--------+--------+--------+
+
+
+
+o-bits = offset
+s-bits = set bits
+t-bits = tag
