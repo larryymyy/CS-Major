@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 struct ColorPoint {
 	long c;
 	long m;
@@ -6,16 +8,21 @@ struct ColorPoint {
 };
 
 int main() {
-	struct ColorPoint square[16][16];
+	struct ColorPoint pts[16][16];
 	long sum = 0;
-	__asm__("# OUTER LOOP");
-	for(int i = 0; i < 16; i++) {
-		__asm__("# INNER LOOP");
+	int num_bytes = sizeof(struct ColorPoint) * 16 * 16;
+	printf("bytes alloc'd: %d\n\n", num_bytes);
+	for(int i = 0; i < 4; i++) {
 		for(int j = 0; j < 16; j++) {
-			sum += square[i][j].c;
-			sum += square[i][j].m;
-			sum += square[i][j].y;
-			sum += square[i][j].k;
+			// sum += pts[i][j].c;
+			// sum += pts[i][j].m;
+			// sum += pts[i][j].y;
+			// sum += pts[i][j].k;
+			printf("pts[%2d][%2d]:  0x%lX\n",
+					i,
+					j,
+					(unsigned long)&pts[i][j]);
 		}
+		printf("\n");
 	}
 }

@@ -28,9 +28,23 @@ Part 1
 +--------------------------------------+
 
 
-* 4096-byte direct-mapped data cache w/ 64-byte blocks (8 x 8 bytes)
+* 4096-byte direct-mapped data cache w/ 64-byte blocks
 * sizeof(long) == 8
 * points begins with memory address 0.
 * The cache is initially empty
 * The only memory access are to the entries of the array points. Variables i,
   j, and sum are stored in registers
+
+Cache Layout:
+-------------
+8 sets of 8 blocks
+
++----------+------------+----------+
+| 64 bytes | ... x6 ... | 64 bytes |
++----------+------------+----------+
+| ...
+| x6
+| ...
++----------+------------+----------+
+| 64 bytes | ... x6 ... | 64 bytes |
++----------+------------+----------+
