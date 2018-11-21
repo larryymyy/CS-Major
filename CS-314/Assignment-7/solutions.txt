@@ -3,48 +3,15 @@ Assignment 7
 
 Part 1
 ======
-+--------------------------------------+
-| /* Provided C Code */                |
-|                                      |
-| struct ColorPoint {                  |
-| 	long c;                            |
-| 	long m;                            |
-| 	long y;                            |
-| 	long k;                            |
-| };                                   |
-| struct ColorPoint points[16][16];    |
-|                                      |
-| void f() {                           |
-| 	long sum = 0;                      |
-| 	for(int i = 0; i < 16; i++) {      |
-| 		for(int j = 0; j < 16; j++) {  |
-| 			sum += points[i][j].c;     |
-| 			sum += points[i][j].m;     |
-| 			sum += points[i][j].y;     |
-| 			sum += points[i][j].k;     |
-| 		}                              |
-| 	}                                  |
-| }                                    |
-+--------------------------------------+
+[A] The total number of memory reads is: 1,024
+    This is because there are 4 movq's per inner loop iteration
+    The inner loop iterates 16 times
+    The inner loop is run 16 times
+    Thus, there are 4 * 16 * 16 = 1,024 memory reads
 
+[B] Since our cache has 64 byte blocks, there will be a miss every 8 reads to the cache.
+    This is because we read 8 bytes at a time (sizeof(long) == 8, and movq moves 8 bytes
+    at a time). Thus when we attempt to read a 9th long, a miss will occur.
+    Therefore, of the 1,024 reads to memory, 128 will miss the cache.
 
-* 4096-byte direct-mapped data cache w/ 64-byte blocks
-* sizeof(long) == 8
-* points begins with memory address 0.
-* The cache is initially empty
-* The only memory access are to the entries of the array points. Variables i,
-  j, and sum are stored in registers
-
-Cache Layout:
--------------
-8 sets of 8 blocks
-
-+----------+------------+----------+
-| 64 bytes | ... x6 ... | 64 bytes |
-+----------+------------+----------+
-| ...
-| x6
-| ...
-+----------+------------+----------+
-| 64 bytes | ... x6 ... | 64 bytes |
-+----------+------------+----------+
+[C] Our miss rate is 1/8 (12.5 %).

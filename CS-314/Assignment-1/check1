@@ -1,0 +1,20 @@
+# !/bin/bash
+
+$SCORE=100
+
+echo "Grader Script for Assignment 1"
+echo "==============================\n"
+
+echo "Part 1"
+echo "------"
+echo "Compiling 1-1.c . . . "
+gcc 1-1.c 2> /dev/null
+
+if [ $? != 0 ]; then
+    echo "1-1.c failed to compile   -25 points"
+else
+    echo "1-1 compiled successfully"
+    echo "Running 1-1 and comparing to correct output . . ."
+fi
+
+echo $SCORE
